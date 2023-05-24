@@ -1,0 +1,31 @@
+{% extends 'base_atlet.html' %}
+
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<h3 style="text-align: center;">RIWAYAT UJIAN KUALIFIKASI</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Tahun</th>
+      <th scope="col">Batch</th>
+      <th scope="col">Tempat Pelaksanaan</th>
+      <th scope="col">Tanggal Pelaksanaan</th>
+      <th scope="col">Hasil</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ujian in atlet_ujian_kualifikasi_list %}
+    <tr>
+      <td>{{ ujian.0 }}</td>
+      <td>{{ ujian.1 }}</td>
+      <td>{{ ujian.2 }}</td>
+      <td>{{ ujian.3 }}</td>
+      <td><h5 style="text-align: center;">lulus</h5></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
