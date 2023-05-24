@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'example_app',
     'babadu',
+    'atlet',
+    'pelatih',
+    'umpire',
 ]
 
 MIDDLEWARE = [

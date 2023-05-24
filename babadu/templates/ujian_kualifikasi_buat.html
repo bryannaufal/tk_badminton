@@ -1,34 +1,32 @@
 <!-- JIKA ROLE = ATLET -->
-{% extends 'base_atlet.html' %}
+{% extends 'base_umpire.html' %}
 
 {% load static %}
 {% block content %}
 
 <!DOCTYPE html>
-<h1>BUAT</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Judul</th>
-      <th scope="col">Deskripsi</th>
-      <th scope="col">Tanggal</th>
-      <th scope="col">Waktu</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for ujian in ujian_kualifikasi_list %}
-    <tr>
-      <td>{{ ujian.0 }}</td>
-      <td>{{ ujian.1 }}</td>
-      <td>{{ ujian.2 }}</td>
-      <td>{{ ujian.3 }}</td>
-      <td>
-        <button class="btn btn-primary">Ikuti</button>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container">
+    <h1>FORM BUAT UJIAN KUALIFIKASI</h1>
+
+    <form>
+        <div class="mb-3">
+            <label for="tahun" class="form-label">Tahun (YYYY):</label>
+            <input type="text" class="form-control" id="tahun" name="tahun" required>
+        </div>
+        <div class="mb-3">
+            <label for="batch" class="form-label">Batch:</label>
+            <input type="text" class="form-control" id="batch" name="batch" required>
+        </div>
+        <div class="mb-3">
+            <label for="tempat" class="form-label">Tempat Pelaksanaan:</label>
+            <input type="text" class="form-control" id="tempat" name="tempat" required>
+        </div>
+        <div class="mb-3">
+            <label for="tanggal" class="form-label">Tanggal Pelaksanaan:</label>
+            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Buat</button>
+    </form>
+</div>
 
 {% endblock content %}
