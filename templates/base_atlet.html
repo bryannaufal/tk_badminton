@@ -37,20 +37,40 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Tes Kualifikasi</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ujian Kualifikasi
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">List Ujian Kualifikasi</a>
+              <a class="dropdown-item" href="#">Riwayat Ujian Kualifikasi</a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Daftar Event</a>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Event
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Daftar Event</a>
+              <a class="dropdown-item" href="#">Enrolled Event</a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Enrolled Event</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sponsor
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Daftar Sponsor</a>
+              <a class="dropdown-item" href="#">List Sponsor</a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Daftar Sponsor</a>
-          </li>
+
         </ul>
       </div>
+
       <div class="collapse navbar-collapse justify-content-end me-3" id="navbarNavDropdown">
         <ul class="navbar-nav nav-pills">
           {% if request.user.is_authenticated %}

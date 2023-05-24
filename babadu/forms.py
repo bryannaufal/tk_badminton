@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 
 # Create your forms here.
-
 class NewUserForm(UserCreationForm):
 	perans = (
 	('Atlet', 'Atlet'),
@@ -13,7 +12,6 @@ class NewUserForm(UserCreationForm):
 	)
 	email = forms.EmailField(required=True)
 	peran = forms.ChoiceField(choices=perans)
-
 
 	class Meta:
 		model = User

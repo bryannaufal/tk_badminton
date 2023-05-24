@@ -39,3 +39,31 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('babadu:login')
+
+from collections import namedtuple
+from django.db import connection
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from collections import namedtuple
+from django.db import connection
+from datetime import datetime as dt
+
+# Create your views here.
+def fetchall(cursor):
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
+
+def ujian_kualifikasi(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM ujian_kualifikasi;
+                        """)
+
+        response['list_ujian_kualifikasi'] = cursor.fetchall()
+        print(response['list_ujian_kualifikasi'])
+        return render(request, "ujian_kualifikasi.html", response)
