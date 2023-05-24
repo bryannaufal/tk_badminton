@@ -54,6 +54,19 @@ def fetchall(cursor):
     nt_result = namedtuple('Result', [col[0] for col in desc])
     return [nt_result(*row) for row in cursor.fetchall()]
 
+def umpire_ujian_kualifikasi_buat(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM ujian_kualifikasi;
+                        """)
+
+        response['umpire_ujian_kualifikasi_buat'] = cursor.fetchall()
+        print(response['umpire_ujian_kualifikasi_buat'])
+        return render(request, "umpire_ujian_kualifikasi_buat.html", response)
+
 def umpire_ujian_kualifikasi_list(request):
     response = {}
     with connection.cursor() as cursor:
@@ -63,9 +76,9 @@ def umpire_ujian_kualifikasi_list(request):
                         FROM ujian_kualifikasi;
                         """)
 
-        response['ujian_kualifikasi_list'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_list'])
-        return render(request, "ujian_kualifikasi_list.html", response)
+        response['umpire_ujian_kualifikasi_list'] = cursor.fetchall()
+        print(response['umpire_ujian_kualifikasi_list'])
+        return render(request, "umpire_ujian_kualifikasi_list.html", response)
 
 def umpire_ujian_kualifikasi_riwayat(request):
     response = {}
@@ -76,19 +89,6 @@ def umpire_ujian_kualifikasi_riwayat(request):
                         FROM ujian_kualifikasi;
                         """)
 
-        response['ujian_kualifikasi_riwayat'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_riwayat'])
-        return render(request, "ujian_kualifikasi_riwayat.html", response)
-
-def umpire_ujian_kualifikasi_soal(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['ujian_kualifikasi_soal'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_soal'])
-        return render(request, "ujian_kualifikasi_soal.html", response)
+        response['umpire_ujian_kualifikasi_riwayat'] = cursor.fetchall()
+        print(response['umpire_ujian_kualifikasi_riwayat'])
+        return render(request, "umpire_ujian_kualifikasi_riwayat.html", response)
