@@ -1,0 +1,133 @@
+{% extends 'base_atlet.html' %}
+
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<div class="container">
+    <br></br>
+    <h3 style="text-align: center;">UJIAN KUALIFIKASI</h3>
+    <h3 style="text-align: center;">PENGETAHUAN TENTANG BULU TANGKIS</h3>
+    <br></br>
+
+    <div class="mb-3">
+        <h5>Instruksi Ujian:</h5>
+        <ol>
+          <li>Bacalah setiap soal dengan teliti sebelum memilih jawaban yang paling tepat.</li>
+          <li>Pilihlah satu jawaban yang menurut Anda benar dari empat opsi yang tersedia (A, B, C, atau D).</li>
+          <li>Tidak ada batasan waktu dalam mengerjakan ujian ini, namun usahakan untuk menjawab semua soal dalam waktu yang wajar.</li>
+          <li>Jika Anda sudah selesai menjawab semua soal, periksa kembali jawaban Anda sebelum menekan tombol submit.</li>
+        </ol>
+        <p>Selamat mengerjakan!</p>
+      </div>
+    
+    <form>
+    <div class="mb-3">
+      <label for="question1" class="form-label"><b>Pertanyaan 1:</b></label>
+      <p>Pada bulutangkis, berapa poin yang dibutuhkan untuk memenangkan satu game?</p>
+      <div>
+        <input type="radio" id="q1-option1" name="question1" value="option1">
+        <label for="q1-option1">A. 15 poin</label>
+      </div>
+      <div>
+        <input type="radio" id="q1-option2" name="question1" value="option2">
+        <label for="q1-option2">B. 21 poin</label>
+      </div>
+      <div>
+        <input type="radio" id="q1-option3" name="question1" value="option3">
+        <label for="q1-option3">C. 50 poin</label>
+      </div>
+      <div>
+        <input type="radio" id="q1-option4" name="question1" value="option4">
+        <label for="q1-option4">D. 100 poin</label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="question1" class="form-label"><b>Pertanyaan 2:</b></label>
+        <p>Berapa kali pemain diijinkan memukul shuttlecock sebelum mengirimnya ke sisi lawan?</p>
+        <div>
+          <input type="radio" id="q2-option1" name="question1" value="option1">
+          <label for="q2-option1">A. 1 kali</label>
+        </div>
+        <div>
+          <input type="radio" id="q2-option2" name="question1" value="option2">
+          <label for="q2-option2">B. 2 kali</label>
+        </div>
+        <div>
+          <input type="radio" id="q2-option3" name="question1" value="option3">
+          <label for="q2-option3">C. 3 kali</label>
+        </div>
+        <div>
+          <input type="radio" id="q2-option4" name="question1" value="option4">
+          <label for="q2-option4">D. 4 kali</label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="question1" class="form-label"><b>Pertanyaan 3:</b></label>
+        <p>Apakah pemain bulutangkis diijinkan menyentuh net (jaring) selama permainan berlangsung?</p>
+        <div>
+          <input type="radio" id="q3-option1" name="question2" value="option1">
+          <label for="q3-option1">A. Ya, boleh</label>
+        </div>
+        <div>
+          <input type="radio" id="q3-option2" name="question1" value="option2">
+          <label for="q3-option2">B. Tidak, tidak boleh</label>
+        </div>
+        <div>
+          <input type="radio" id="q-option3" name="question1" value="option3">
+          <label for="q3-option3">C. Ya, jika tidak sengaja</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option4" name="question1" value="option4">
+          <label for="q1-option4">D. Ya, jika ingin giveaway poin ke lawan</label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="question1" class="form-label"><b>Pertanyaan 4:</b></label>
+        <p>Saat permainan ganda, Jika Anda melakukan servis menuju posisi lurus ke depan, maka ....</p>
+        <div>
+          <input type="radio" id="q1-option1" name="question1" value="option1">
+          <label for="q1-option1">A. Poin valid dan diberikan kepada kita</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option2" name="question1" value="option2">
+          <label for="q1-option2">B. Poin diberikan kepada lawan</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option3" name="question1" value="option3">
+          <label for="q1-option3">C. Anda akan disoraki cupu</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option4" name="question1" value="option4">
+          <label for="q1-option4">D. Anda akan dieliminasi di Indonesian Idol</label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="question1" class="form-label"><b>Pertanyaan 5:</b></label>
+        <p>Apa nama teknik pukulan yang dilakukan dengan memukul shuttlecock dengan sudut tajam dari atas ke bawah?</p>
+        <div>
+          <input type="radio" id="q1-option1" name="question1" value="option1">
+          <label for="q1-option1">A. Clear</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option2" name="question1" value="option2">
+          <label for="q1-option2">B. Smash</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option3" name="question1" value="option3">
+          <label for="q1-option3">C. Cherrybelle</label>
+        </div>
+        <div>
+          <input type="radio" id="q1-option4" name="question1" value="option4">
+          <label for="q1-option4">D. Coboy Junior</label>
+        </div>
+      </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock content %}

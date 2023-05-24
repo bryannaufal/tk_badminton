@@ -12,5 +12,8 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
-    path('ujian_kualifikasi/', ujian_kualifikasi, name='ujian_kualifikasi')
+    path('ujian_kualifikasi_buat/', ujian_kualifikasi_buat, name='ujian_kualifikasi_buat'),
+    path('ujian_kualifikasi_list/', ujian_kualifikasi_list, name='ujian_kualifikasi_list'),
+    path('ujian_kualifikasi_riwayat/', ujian_kualifikasi_riwayat, name='ujian_kualifikasi_riwayat'),
+    path('ujian_kualifikasi_soal/', ujian_kualifikasi_soal, name='ujian_kualifikasi_soal')
 ]

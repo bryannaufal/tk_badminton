@@ -55,7 +55,7 @@ def fetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-def ujian_kualifikasi(request):
+def ujian_kualifikasi_buat(request):
     response = {}
     with connection.cursor() as cursor:
        
@@ -64,6 +64,45 @@ def ujian_kualifikasi(request):
                         FROM ujian_kualifikasi;
                         """)
 
-        response['list_ujian_kualifikasi'] = cursor.fetchall()
-        print(response['list_ujian_kualifikasi'])
-        return render(request, "ujian_kualifikasi.html", response)
+        response['ujian_kualifikasi_buat'] = cursor.fetchall()
+        print(response['ujian_kualifikasi_buat'])
+        return render(request, "ujian_kualifikasi_buat.html", response)
+
+def ujian_kualifikasi_list(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM ujian_kualifikasi;
+                        """)
+
+        response['ujian_kualifikasi_list'] = cursor.fetchall()
+        print(response['ujian_kualifikasi_list'])
+        return render(request, "ujian_kualifikasi_list.html", response)
+
+def ujian_kualifikasi_riwayat(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM ujian_kualifikasi;
+                        """)
+
+        response['ujian_kualifikasi_riwayat'] = cursor.fetchall()
+        print(response['ujian_kualifikasi_riwayat'])
+        return render(request, "ujian_kualifikasi_riwayat.html", response)
+
+def ujian_kualifikasi_soal(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM ujian_kualifikasi;
+                        """)
+
+        response['ujian_kualifikasi_soal'] = cursor.fetchall()
+        print(response['ujian_kualifikasi_soal'])
+        return render(request, "ujian_kualifikasi_soal.html", response)

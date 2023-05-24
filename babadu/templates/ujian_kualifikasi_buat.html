@@ -1,10 +1,11 @@
+<!-- JIKA ROLE = ATLET -->
 {% extends 'base_atlet.html' %}
 
 {% load static %}
 {% block content %}
 
 <!DOCTYPE html>
-
+<h1>BUAT</h1>
 <table class="table">
   <thead>
     <tr>
@@ -16,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for ujian in list_ujian_kualifikasi %}
+    {% for ujian in ujian_kualifikasi_list %}
     <tr>
       <td>{{ ujian.0 }}</td>
       <td>{{ ujian.1 }}</td>
@@ -31,4 +32,3 @@
 </table>
 
 {% endblock content %}
-
