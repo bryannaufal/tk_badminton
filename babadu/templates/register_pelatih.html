@@ -1,0 +1,74 @@
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class = "login">
+
+    <h1>Create Pelatih</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Nama: </td>
+                <td><input type="text" name="nama" placeholder="Masukkan nama" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Email: </td>
+                <td><input type="text" name="email" placeholder="Masukkan email" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Negara: </td>
+                <td><input type="text" name="negara" placeholder="Masukkan negara" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Kategori:</td>
+                <td>
+                    <input type="checkbox" name="kategori" value="tunggal_putra"> Tunggal Putra<br>
+                    <input type="checkbox" name="kategori" value="tunggal_putri"> Tunggal Putri<br>
+                    <input type="checkbox" name="kategori" value="ganda_putra"> Ganda Putra<br>
+                    <input type="checkbox" name="kategori" value="ganda_putri"> Ganda Putri<br>
+                    <input type="checkbox" name="kategori" value="ganda_campuran"> Ganda Campuran<br>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Tanggal Mulai:</td>
+                <td><input type="text" name="tanggal_mulai" id="start-date" placeholder="Tanggal Mulai" class="form-control"></td>
+            </tr>
+
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Register"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+        
+
+
+</div>
+
+<script>
+    $(function() {
+        $("#start-date").datepicker();
+    });
+</script>
+{% endblock content %}

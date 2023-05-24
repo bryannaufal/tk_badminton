@@ -1,0 +1,75 @@
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+
+    <h1>Create Atlet</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Nama: </td>
+                <td><input type="text" name="nama" placeholder="Masukkan nama" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Email: </td>
+                <td><input type="text" name="email" placeholder="Masukkan email" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Negara: </td>
+                <td><input type="text" name="negara" placeholder="Masukkan negara" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Tanggal Lahir: </td>
+                <td><input type="text" name="tanggal_lahir" placeholder="Masukkan tanggal lahir" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Play: </td>
+                <td>
+                    <label><input type="radio" name="play" value="Left"> Left </label>
+                    <label><input type="radio" name="play" value="right"> Right </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Tinggi Badan: </td>
+                <td><input type="text" name="tinggi_badan" placeholder="Masukkan tinggi badan" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Jenis Kelamin: </td>
+                <td>
+                    <label><input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki </label>
+                    <label><input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan </label>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Register"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+        
+
+
+</div>
+
+{% endblock content %}

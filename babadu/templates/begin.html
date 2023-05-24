@@ -10,8 +10,14 @@ h1 {text-align: center;}
 <h1>BABADU - 9</h1>
 <center>
 <td>
-    <nobr><input type="submit" value="Login">
-    <input type="button" value="Register"></nobr>
+    <nobr>
+        <a href="{% url 'babadu:login' %}">
+            <button class="btn btn-primary btn-lg">Login</button>
+        </a>
+        <a href="{% url 'babadu:pilih_role' %}">
+            <button class="btn btn-primary btn-lg">Register</button>
+        </a>
+    </nobr>
 </td>
 </center>
 

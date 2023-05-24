@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h1 {text-align: center;}
+</style>
+</head>
+<body>
+
+<h1>Pilih Role</h1>
+<center>
+<td>
+    <nobr>
+        <a href="{% url 'babadu:register_atlet' %}">
+            <button class="btn btn-primary btn-lg">Atlet</button>
+        </a>
+        <a href="{% url 'babadu:register_pelatih' %}">
+            <button class="btn btn-primary btn-lg">Pelatih</button>
+        </a>
+        <a href="{% url 'babadu:register_umpire' %}">
+            <button class="btn btn-primary btn-lg">Umpire</button>
+        </a>
+    </nobr>
+</td>
+</center>
+
+</body>
+</html>

@@ -6,9 +6,47 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='login/')
-def show_wishlist(request):
-    return render(request, "babadu.html")
+# @login_required(login_url='login/')
+def begin_page(request):
+    return render(request, "begin.html")
+
+def pilih_role(request):
+    return render(request, "pilih_role.html")
+
+
+def register_atlet(request):
+    if request.method == 'POST':
+        nama = request.POST.get('nama')
+        email = request.POST.get('email')
+        negara = request.POST.get('negara')
+        tanggal_lahir = request.POST.get('tanggal_lahir')
+        play = request.POST.get('play')
+        tinggi_badan = request.POST.get('tinggi_badan')
+        jenis_kelamin = request.POST.get('jenis_kelamin')
+
+    context = {}
+    return render(request, 'register_atlet.html', context)
+    # return render(request, "dashboard_atlet.html")
+    
+def register_pelatih(request):
+    if request.method == 'POST':
+        nama = request.POST.get('nama')
+        email = request.POST.get('email')
+        negara = request.POST.get('negara')
+        kategori = request.POST.get('kategori')
+        tanggal_mulai = request.POST.get('tanggal_mulai')
+
+    context = {}
+    return render(request, 'register_pelatih.html', context)
+
+def register_umpire(request):
+    if request.method == 'POST':
+        nama = request.POST.get('nama')
+        email = request.POST.get('email')
+        negara = request.POST.get('negara')
+
+    context = {}
+    return render(request, 'register_umpire.html', context)
 
 def register(request):
     form = UserCreationForm()
@@ -23,7 +61,7 @@ def register(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-def login_user(request):
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
