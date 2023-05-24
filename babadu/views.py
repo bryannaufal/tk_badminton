@@ -1,3 +1,5 @@
+from urllib import response
+from uuid import uuid1
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -6,7 +8,21 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
+from collections import namedtuple
+from django.db import connection
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from collections import namedtuple
+from django.db import connection
+from datetime import datetime as dt
+
 # @login_required(login_url='login/')
+
+def fetchall(cursor):
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
 def begin_page(request):
     return render(request, "begin.html")
 
@@ -16,13 +32,37 @@ def pilih_role(request):
 
 def register_atlet(request):
     if request.method == 'POST':
+        id = uuid1()
         nama = request.POST.get('nama')
         email = request.POST.get('email')
         negara = request.POST.get('negara')
         tanggal_lahir = request.POST.get('tanggal_lahir')
         play = request.POST.get('play')
+        play = True if play == 'True' else False
         tinggi_badan = request.POST.get('tinggi_badan')
         jenis_kelamin = request.POST.get('jenis_kelamin')
+        jenis_kelamin = True if jenis_kelamin == 'True' else False
+
+
+        with connection.cursor() as cursor:
+            response = ""
+            cursor.execute("""
+                            SELECT *
+                            FROM member
+                            WHERE email ='{email}';
+                            """)
+
+            is_email_exist = cursor.fetchall()
+            if is_email_exist:
+                messages.info(request, 'Email sudah pernah terdaftar!')
+            else:
+                cursor.execute(f"""INSERT INTO MEMBER VALUES ('{id}', '{nama}', '{email}')""")
+                connection.commit()
+                cursor.execute(f"INSERT INTO atlet VALUES ('{id}', '{tanggal_lahir}', '{negara}', {play}, '{tinggi_badan}', null,{jenis_kelamin})")
+                connection.commit()
+                messages.success(request, 'Akun telah berhasil dibuat!')
+                return redirect('/atlet')
+            print(is_email_exist)
 
     context = {}
     return render(request, 'register_atlet.html', context)
