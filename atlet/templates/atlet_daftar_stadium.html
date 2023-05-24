@@ -1,0 +1,32 @@
+{% extends 'base_atlet.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+<h3 style="text-align: center;">DAFTAR STADIUM</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nama Stadium</th>
+      <th scope="col">Negara</th>
+      <th scope="col">Kapasitas</th>
+      <th scope="col">Opsi</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stadium in atlet_daftar_stadium %}
+    <tr>
+        <td>{{ stadium.0 }}</td>
+        <td>{{ stadium.3 }}</td>
+        <td>{{ stadium.2 }}</td>
+        <td>
+            <a href="../atlet_daftar_stadium/{{ stadium.0 }}" class="btn btn-primary">Pilih</a>
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

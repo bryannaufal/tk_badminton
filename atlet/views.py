@@ -92,3 +92,44 @@ def atlet_ujian_kualifikasi_soal(request):
         response['atlet_ujian_kualifikasi_soal'] = cursor.fetchall()
         print(response['atlet_ujian_kualifikasi_soal'])
         return render(request, "atlet_ujian_kualifikasi_soal.html", response)
+
+def atlet_daftar_stadium(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM stadium;
+                        """)
+
+        response['atlet_daftar_stadium'] = cursor.fetchall()
+        print(response['atlet_daftar_stadium'])
+        return render(request, "atlet_daftar_stadium.html", response)
+
+def atlet_daftar_event(request, stadium):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM event
+                        WHERE nama_stadium = %s;
+                        """, [stadium])
+
+        response['atlet_daftar_event'] = cursor.fetchall()
+        print(response['atlet_daftar_event'])
+        return render(request, "atlet_daftar_event.html", response)
+
+def atlet_daftar_partai(request, stadium, event):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM event
+                        WHERE nama_stadium = %s AND nama_event = %s ;
+                        """, [stadium, event])
+
+        response['atlet_daftar_partai'] = cursor.fetchall()
+        print(response['atlet_daftar_partai'])
+        return render(request, "atlet_daftar_partai.html", response)

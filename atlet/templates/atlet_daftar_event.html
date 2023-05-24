@@ -1,0 +1,34 @@
+{% extends 'base_atlet.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Event</title>
+{% endblock meta %}
+
+{% block content %}
+<h3 style="text-align: center;">DAFTAR EVENT</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nama Event</th>
+      <th scope="col">Total Hadiah</th>
+      <th scope="col">Tanggal Mulai</th>
+      <th scope="col">Kategori</th>
+      <th scope="col">Opsi</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in atlet_daftar_event %}
+    <tr>
+        <td>{{ event.0 }}</td>
+        <td>{{ event.7 }}</td>
+        <td>{{ event.4 }}</td>
+        <td>{{ event.6 }}</td>
+        <td>
+            <a href="../atlet_daftar_stadium/{{ event.2 }}/{{event.0}}" class="btn btn-primary">Pilih</a>
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
