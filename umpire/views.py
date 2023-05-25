@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 @login_required(login_url='login/')
 def show_wishlist(request):
@@ -335,3 +336,44 @@ def lihat_hasil_pertandingan(request):
     }
     print(context)
     return render(request, "lihat_hasil_pertandingan.html", context)
+
+def dashboard_umpire(request):
+    nama = request.session["nama"]
+    email = request.session["email"]
+
+    response = {}
+
+    with connection.cursor() as cursor:
+        # Get member ID
+        cursor.execute("""
+            SELECT id
+                FROM MEMBER
+                WHERE nama = %s AND email = %s;
+        """, [nama, email])
+        member_id = cursor.fetchone()[0]
+        response['member_id'] = member_id
+        print(response['member_id'])
+
+        # Get umpire details
+        cursor.execute(
+            """
+            SELECT M.Nama, U.Negara, M.Email
+            FROM MEMBER M
+            JOIN UMPIRE U ON M.ID = U.ID AND M.ID = %s;
+            """,
+            [member_id]
+        )
+        umpire_data = cursor.fetchone()
+        response['umpire_data'] = umpire_data
+        print(response['umpire_data'])
+
+        if umpire_data:
+            response.update({
+                "nama": umpire_data[0],
+                "negara": umpire_data[1],
+                "email": umpire_data[2],
+            })
+        else:
+            return HttpResponse("umpire data not found.")
+
+    return render(request, "umpire_dashboard.html", response)
