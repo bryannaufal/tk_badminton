@@ -120,7 +120,7 @@ def latih_atlet(request):
                             JOIN ATLET A ON MA.ID = A.ID
                             JOIN ATLET_PELATIH AP ON A.ID = AP.ID_Atlet
                             JOIN PELATIH P ON AP.ID_Pelatih = P.ID
-                            WHERE p.id= '{id_pelatih};'""")
+                            WHERE p.id= '{id_pelatih}';""")
 
         daftar_atlet_latih= cursor.fetchall()
 
@@ -140,9 +140,18 @@ def latih_atlet(request):
     return render(request, "latih_atlet.html", context)
 
 def dashboard_pelatih(request):
-    pelatih_id = request.session["id"]
+    nama_pelatih = request.session["nama"]
+    email_pelatih = request.session["email"]
     response = {}
     with connection.cursor() as cursor:
+        cursor.execute(
+            f"""
+            SELECT ID 
+            FROM MEMBER 
+            WHERE NAMA = '{nama_pelatih}' AND EMAIL = '{email_pelatih}';
+            """
+        )
+        id_pelatih= cursor.fetchone()[0]
         cursor.execute("""
                         SELECT DISTINCT
                             M.Nama,
@@ -154,7 +163,7 @@ def dashboard_pelatih(request):
                             PELATIH_SPESIALISASI PS
 
                         WHERE P.ID = M.ID AND P.ID = %s
-                        """, [pelatih_id])
+                        """, [id_pelatih])
 
         response['list_dashboard_pelatih'] = cursor.fetchall()
         print(response['list_dashboard_pelatih'])
@@ -169,7 +178,7 @@ def dashboard_pelatih(request):
                             PELATIH_SPESIALISASI PS
 
                         WHERE P.ID = M.ID AND PS.ID_Pelatih = P.ID AND PS.ID_SPESIALISASI = S.ID AND P.ID = %s
-                        """, [pelatih_id])
+                        """, [id_pelatih])
         response['pelatih_spesialisasi'] = cursor.fetchall()
         # print(response['pelatih_spesialisai'])
 
