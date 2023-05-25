@@ -4,7 +4,7 @@
 {% block meta %}
 <title>Daftar Kategori Event</title>
 
-<style>
+<!-- <style>
     table, th, td {
         border: 1px solid white;
         border-collapse: collapse;
@@ -13,30 +13,36 @@
     th, td {
         background-color: #96D4D4;
     }
-</style>
+</style> -->
 {% endblock meta %}
 
 {% block content %}
 
-{% for event in atlet_daftar_partai %}
+
 <div class="container p-1" style="text-align: left; align-items: center; justify-content: center;">
     <h3 style="text-align: center;">PILIH KATEGORI</h3>
+    {% for event in atlet_daftar_partai %}
     <h7>Event: {{event.0}}</h7>
-    <br><h7>Hadiah: {{event.7}}</h7>
-    <br><h7>Tanggal Mulai: {{event.4}}</h7>
-    <br><h7>Tanggal Selesai: {{event.5}}</h7>
-    <br><h7>Kategori: {{event.6}}</h7>
-    <br><h7>Kapasitas: 8/10</h7>
-    <br><h7>Stadium: {{event.2}}</h7>
-    <br><h7>Negara: {{event.3}}</h7>
+    <br><h7>Hadiah: {{event.1}}</h7>
+    <br><h7>Tanggal Mulai: {{event.2}}</h7>
+    <br><h7>Tanggal Selesai: {{event.3}}</h7>
+    <br><h7>Kategori: {{event.4}}</h7>
+    <br><h7>Kapasitas: 8/ {{event.5}}</h7>
+    <br><h7>Stadium: {{event.6}}</h7>
+    <br><h7>Negara: {{event.7}}</h7>
+    {% endfor %}
+    <br>
+    <form action="">
+
+    
     <!-- <div class="table"> -->
-        <table border="1" style="text-align: center; margin: auto;">
+        <table class="table">
             <!-- <thead> -->
                 <tr>
                     <!-- <th class="col-0.5">#</th> -->
-                    <th>Kategori</th>
-                    <th>Partner</th>
-                    <th>Opsi</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Partner</th>
+                    <th scope="col">Opsi</th>
                 </tr>
                 <!-- </thead> -->
 
@@ -44,76 +50,53 @@
                 <tr>
                     <td>Tunggal Putra</td>
                     <td>-</td>
-                    <td><a href="" hidden="True">Join</a></td>
+                    <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Tunggal Putri</td>
                     <td>-</td>
-                    <td><a href="">Join</a></td>
+                    <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Ganda Putra</td>
                     <td>
-                        <select id="dropdown" name="dropdown" style="color: grey;" disabled = true>
-                            <option value="option2">Alf</option>
-                            <option value="option3">Muffin</option>
-                            <option value="option2">Nelson</option>
-                            <option value="option2">Trula</option>
-                            <option value="option1">Hughie</option>
-                            <option value="option2">Mina</option>
-                            <option value="option3">Shawna</option>
-                            <option value="option2">Wadsworth</option>
-                            <option value="option1">Marje</option>
-                            <option value="option2">Kevin</option>
-                            <option value="option3">Markus</option>
-                            </select>
+                        <select id="ganda_putra" name="ganda_putra" style="color: grey;" disabled = true>
+                            <option selected>Pilih partner</option>
+                            {% for atlet in daftar_atlet_pria %}
+                            <option value="{{atlet.0}}">{{atlet.2}}</option>
+                            {% endfor %}
+                        </select>
                     </td>
-                    <td><a href="" hidden="True">Join</a></td>
+                    <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Ganda Putri</td>
                     <td>
-                        <select id="dropdown" name="dropdown">
-                            <option value="option1">Bianca</option>
-                            <option value="option1">Bordy</option>
-                            <option value="option3">Aleece</option>
-                            <option value="option3">Arther</option>
-                            <option value="option1">Pincas</option>
-                            <option value="option3">Aggy</option>
-                            <option value="option1">Marje</option>
-                            </select>
+                        <select id="ganda_putri" name="ganda_putri" style="color: grey;">
+                            <option selected>Pilih partner</option>
+                            {% for atlet in daftar_atlet_wanita %}
+                            <option value="{{atlet.0}}">{{atlet.2}}</option>
+                            {% endfor %}
+                        </select>
                     </td>
-                    <td><a href="">Join</a></td>
+                    <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Ganda Campuran</td>
                     <td>
-                        <select id="dropdown" name="dropdown">
-                            <option value="option1">Bianca</option>
-                            <option value="option2">Alf</option>
-                            <option value="option3">Muffin</option>
-                            <option value="option1">Bordy</option>
-                            <option value="option2">Nelson</option>
-                            <option value="option3">Aleece</option><option value="option1">Bianca</option>
-                            <option value="option2">Trula</option>
-                            <option value="option3">Arther</option>
-                            <option value="option1">Hughie</option>
-                            <option value="option2">Mina</option>
-                            <option value="option3">Shawna</option>
-                            <option value="option1">Pincas</option>
-                            <option value="option2">Wadsworth</option>
-                            <option value="option3">Aggy</option>
-                            <option value="option1">Marje</option>
-                            <option value="option2">Kevin</option>
-                            <option value="option3">Markus</option>
-                            </select>
+                        <select id="ganda_campuran" name="ganda_campuran" style="color: grey;">
+                            <option selected>Pilih partner</option>
+                            {% for atlet in daftar_atlet_all %}
+                            <option value="{{atlet.0}}">{{atlet.2}}</option>
+                            {% endfor %}
+                        </select>
                     </td>
-                    <td><a href="">Join</a></td>
+                    <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <!-- </tbody> -->
         </table>
-    <!-- </div> -->
+    </form>
 </div>
-{% endfor %}
+
 
 {% endblock content %}

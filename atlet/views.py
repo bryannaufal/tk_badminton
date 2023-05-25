@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from pprint import pprint
 
 @login_required(login_url='login/')
 def show_wishlist(request):
@@ -110,26 +111,118 @@ def atlet_daftar_event(request, stadium):
     response = {}
     with connection.cursor() as cursor:
        
-        cursor.execute("""
+        cursor.execute(f"""
                         SELECT *
                         FROM event
-                        WHERE nama_stadium = %s;
-                        """, [stadium])
+                        WHERE nama_stadium like '{stadium}%';
+                        """)
 
         response['atlet_daftar_event'] = cursor.fetchall()
-        print(response['atlet_daftar_event'])
+
+        pprint(response['atlet_daftar_event'])
         return render(request, "atlet_daftar_event.html", response)
+
+# def atlet_daftar_partai(request, stadium, event):
+#     response = {}
+#     with connection.cursor() as cursor:
+       
+#         cursor.execute("""
+#                         SELECT *
+#                         FROM event
+#                         WHERE nama_stadium = %s AND nama_event = %s ;
+#                         """, [stadium, event])
+
+#         response['atlet_daftar_partai'] = cursor.fetchall()
+#         print(response['atlet_daftar_partai'])
+#         return render(request, "atlet_daftar_partai.html", response)
+
+# def atlet_daftar_partai(request, stadium, event):
+#     response = {}
+#     with connection.cursor() as cursor:
+       
+#         cursor.execute("""
+#                         SELECT e.nama_event, e.total_hadiah, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, s.kapasitas, e.nama_stadium, e.negara
+#                         FROM event as e, stadium as s
+#                         WHERE e.nama_stadium = %s AND e.nama_event = %s AND s.nama = e.nama_stadium;
+#                         """, [stadium, event])
+
+#         response['atlet_daftar_partai'] = cursor.fetchall()
+#         print(response['atlet_daftar_partai'])
+
+#         cursor.execute("""
+#                         SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+#                         FROM member as m
+#                         join atlet as a on a.id = m.id
+#                         join atlet_kualifikasi as ak on a.id = ak.id_atlet
+#                         WHERE a.jenis_kelamin = TRUE;
+#                         """)
+
+#         response['daftar_atlet_wanita'] = cursor.fetchall()
+#         print(response['atlet_daftar_wanita'])
+
+#         cursor.execute("""
+#                         SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+#                         FROM member as m
+#                         join atlet as a on a.id = m.id
+#                         join atlet_kualifikasi as ak on a.id = ak.id_atlet
+#                         WHERE a.jenis_kelamin = FALSE;
+#                         """)
+#         response['daftar_atlet_pria'] = cursor.fetchall()
+#         print(response['atlet_daftar_pria'])
+
+#         cursor.execute("""
+#                         SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+#                         FROM member as m
+#                         join atlet as a on a.id = m.id
+#                         join atlet_kualifikasi as ak on a.id = ak.id_atlet
+#                         """)
+
+#         response['daftar_atlet_all'] = cursor.fetchall()
+#         print(response['atlet_daftar_all'])
+
+#         return render(request, "atlet_daftar_partai.html", response)
 
 def atlet_daftar_partai(request, stadium, event):
     response = {}
     with connection.cursor() as cursor:
-       
         cursor.execute("""
-                        SELECT *
-                        FROM event
-                        WHERE nama_stadium = %s AND nama_event = %s ;
-                        """, [stadium, event])
+            SELECT e.nama_event, e.total_hadiah, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, s.kapasitas, e.nama_stadium, e.negara
+            FROM event as e, stadium as s
+            WHERE e.nama_stadium = %s AND e.nama_event = %s AND s.nama = e.nama_stadium;
+        """, [stadium, event])
 
         response['atlet_daftar_partai'] = cursor.fetchall()
         print(response['atlet_daftar_partai'])
-        return render(request, "atlet_daftar_partai.html", response)
+
+        cursor.execute("""
+            SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+            FROM member as m
+            JOIN atlet as a on a.id = m.id
+            JOIN atlet_kualifikasi as ak on a.id = ak.id_atlet
+            WHERE a.jenis_kelamin = TRUE;
+        """)
+
+        response['daftar_atlet_wanita'] = cursor.fetchall()
+        print(response['daftar_atlet_wanita'])
+
+        cursor.execute("""
+            SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+            FROM member as m
+            JOIN atlet as a on a.id = m.id
+            JOIN atlet_kualifikasi as ak on a.id = ak.id_atlet
+            WHERE a.jenis_kelamin = FALSE;
+        """)
+        response['daftar_atlet_pria'] = cursor.fetchall()
+        print(response['daftar_atlet_pria'])
+
+        cursor.execute("""
+            SELECT a.id, a.jenis_kelamin, m.nama, ak.id_atlet
+            FROM member as m
+            JOIN atlet as a on a.id = m.id
+            JOIN atlet_kualifikasi as ak on a.id = ak.id_atlet;
+        """)
+
+        response['daftar_atlet_all'] = cursor.fetchall()
+        print(response['daftar_atlet_all'])
+
+    return render(request, "atlet_daftar_partai.html", response)
