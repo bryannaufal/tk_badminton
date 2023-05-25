@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
+    path('dashboard_atlet/', dashboard_atlet, name='dashboard_atlet'),
     path('atlet_ujian_kualifikasi_list/', atlet_ujian_kualifikasi_list, name='atlet_ujian_kualifikasi_list'),
     path('atlet_ujian_kualifikasi_riwayat/', atlet_ujian_kualifikasi_riwayat, name='atlet_ujian_kualifikasi_riwayat'),
     path('atlet_ujian_kualifikasi_soal/', atlet_ujian_kualifikasi_soal, name='atlet_ujian_kualifikasi_soal'),
