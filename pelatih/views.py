@@ -88,5 +88,32 @@ def daftar_atlet(request):
 
         return render(request, 'daftar_atlet.html', context)
 
-def list_atlet(request):
-    print("hello")
+def latih_atlet(request):
+    id_pelatih = request.session["id"]
+
+    with connection.cursor() as cursor:
+
+        cursor.execute(f"""
+                            SELECT MA.Nama, MA.Email, A.World_rank
+                            FROM MEMBER MA
+                            JOIN ATLET A ON MA.ID = A.ID
+                            JOIN ATLET_PELATIH AP ON A.ID = AP.ID_Atlet
+                            JOIN PELATIH P ON AP.ID_Pelatih = P.ID
+                            WHERE p.id= '{id_pelatih}'""")
+
+        daftar_atlet_latih= cursor.fetchall()
+
+        latih_atlet = []
+
+        for res in daftar_atlet_latih:
+            atlet = {
+                    "nama": res[0],
+                    "email": res[1],
+                    "world_rank": res[2],
+                }
+            latih_atlet.append(atlet)
+
+    context = {
+        "latih_atlet": latih_atlet
+    }
+    return render(request, "list_atlet.html", context)
