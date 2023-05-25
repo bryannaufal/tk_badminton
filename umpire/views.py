@@ -10,6 +10,8 @@ from datetime import date, datetime
 from django.views.decorators.csrf import csrf_exempt
 
 
+from django.views.decorators.csrf import csrf_exempt
+
 @login_required(login_url='login/')
 def show_wishlist(request):
     return render(request, "babadu.html")

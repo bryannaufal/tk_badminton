@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
+from django.views.decorators.csrf import csrf_exempt
+
 from collections import namedtuple
 from django.db import connection
 from django.shortcuts import render, redirect
@@ -118,7 +120,7 @@ def register(request):
     
     context = {'form':form}
     return render(request, 'register.html', context)
-    
+
 @csrf_exempt
 def login(request):
     with connection.cursor() as cursor:
