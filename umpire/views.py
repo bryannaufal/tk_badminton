@@ -365,7 +365,7 @@ def final(request):
         'score': [[0,0], [0,0], [0,0], [0,0]]
     }
     print(context)
-    return render(request, "pertandingan-final.html", context)
+    return render(request, "pertandingan-final-juara3.html", context)
 def dashboard_umpire(request):
     nama = request.session["nama"]
     email = request.session["email"]
