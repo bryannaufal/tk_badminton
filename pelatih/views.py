@@ -49,6 +49,7 @@ def logout_user(request):
     logout(request)
     return redirect('babadu:login')
 
+@csrf_exempt
 def daftar_atlet(request):
     with connection.cursor() as cursor:
         if request.method == 'POST':

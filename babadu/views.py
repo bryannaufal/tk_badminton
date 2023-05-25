@@ -118,7 +118,8 @@ def register(request):
     
     context = {'form':form}
     return render(request, 'register.html', context)
-
+    
+@csrf_exempt
 def login(request):
     with connection.cursor() as cursor:
             cursor.execute("""
