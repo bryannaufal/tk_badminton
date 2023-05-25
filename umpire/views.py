@@ -61,17 +61,34 @@ def fetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 def umpire_ujian_kualifikasi_buat(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['umpire_ujian_kualifikasi_buat'] = cursor.fetchall()
-        print(response['umpire_ujian_kualifikasi_buat'])
-        return render(request, "umpire_ujian_kualifikasi_buat.html", response)
+    # DB Connection
+    cur = connection.cursor()
+    context={}
+    if request.method == 'POST':
+        tahun = request.POST.get('tahun')
+        batch = request.POST.get('batch')
+        tempat_pelaksanaan = request.POST.get('tempat')
+        tanggal_pelaksanaan = request.POST.get('tanggal')
+        # Cek
+        print(tahun)
+        print(batch)
+        print(tempat_pelaksanaan)
+        print(tanggal_pelaksanaan)
+        
+        if tahun == "" or batch ==  "" or tempat_pelaksanaan == "" or tanggal_pelaksanaan == None :
+            context["error_message"] =  "Data yang diisikan belum lengkap, silahkan lengkapi data terlebih dahulu."
+            return render(request, "buat_ujian_kualifikasi.html", context)
+    
+        # SQL Query
+        cur.execute(
+            """
+            INSERT INTO UJIAN_KUALIFIKASI VALUES (%s, %s, %s, CAST(%s AS DATE));
+            """,
+            [int(tahun), int(batch), tempat_pelaksanaan, tanggal_pelaksanaan]
+        )
+        return redirect("../umpire_ujian_kualifikasi_list")
+        print("berhasil nambahin")
+    return render(request, "umpire_ujian_kualifikasi_buat.html")
 
 def umpire_ujian_kualifikasi_list(request):
     response = {}
@@ -81,7 +98,6 @@ def umpire_ujian_kualifikasi_list(request):
                         SELECT *
                         FROM ujian_kualifikasi;
                         """)
-
         response['umpire_ujian_kualifikasi_list'] = cursor.fetchall()
         print(response['umpire_ujian_kualifikasi_list'])
         return render(request, "umpire_ujian_kualifikasi_list.html", response)
@@ -91,10 +107,16 @@ def umpire_ujian_kualifikasi_riwayat(request):
     with connection.cursor() as cursor:
        
         cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
+            SELECT M.nama, U.tahun, U.batch, U.tempat, U.tanggal, N.hasil_lulus
+            FROM member M, atlet A, ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI N, ujian_kualifikasi U
+            WHERE M.id IN (SELECT A.id FROM ATLET) 
+            AND N.id_atlet = M.id 
+            AND N.tempat = U.tempat
+            AND N.batch = U.batch 
+            AND N.tempat = U.tempat 
+            AND N.tanggal = U.tanggal
+            ORDER BY u.tanggal desc;
+            """)
         response['umpire_ujian_kualifikasi_riwayat'] = cursor.fetchall()
         print(response['umpire_ujian_kualifikasi_riwayat'])
         return render(request, "umpire_ujian_kualifikasi_riwayat.html", response)
