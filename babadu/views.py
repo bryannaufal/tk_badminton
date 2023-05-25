@@ -157,7 +157,6 @@ def login(request):
                 is_valid = True
                 role = 'atlet'
                 request.session['role'] = role
-                return redirect('atlet:dashboard_atlet')
         for element in pelatih_data:
             if nama == element[0] and email == element[1]:
                 is_valid = True
@@ -184,7 +183,7 @@ def login(request):
             #     )
             #     request.session['id'] = cursor.fetchone()[0]
             messages.success(request, f'Anda telah berhasil login sebagai {role} :)')
-            return redirect(f'/{role}')
+            return redirect(f'/{role}/dashboard/')
         else:
             messages.info(request, f'Data yang anda masukkan tidak valid :(')
     context = {}
