@@ -16,5 +16,5 @@ urlpatterns = [
     path('lihat_hasil_pertandingan/', lihat_hasil_pertandingan, name='lihat_hasil_pertandingan'),
     path('dashboard/', dashboard_umpire, name='dashboard_umpire'),
     path('dashboard/', umpire_ujian_kualifikasi_riwayat, name='umpire_ujian_kualifikasi_riwayat'),
-    path('perempat', perempat, name='perempat')
+    path('perempat/', perempat, name='perempat')
 ]
