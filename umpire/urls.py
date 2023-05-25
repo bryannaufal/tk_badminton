@@ -13,11 +13,8 @@ urlpatterns = [
     path('umpire_ujian_kualifikasi_buat/', umpire_ujian_kualifikasi_buat, name='umpire_ujian_kualifikasi_buat'),
     path('lihat_daftar_atlet/', lihat_daftar_atlet, name='lihat_daftar_atlet'),
     path('daftar_partai_kompetisi/', lihat_partai_kompetisi, name='lihat_partai_kompetisi'),
-<<<<<<< HEAD
-    path('lihat_hasil_pertandingan/', lihat_hasil_pertandingan, name='lihat_hasil_pertandingan'),
+    path('lihat_hasil_pertandingan/', perempat, name='lihat_hasil_pertandingan'),
     path('dashboard/', dashboard_umpire, name='dashboard_umpire'),
-=======
     path('dashboard/', umpire_ujian_kualifikasi_riwayat, name='umpire_ujian_kualifikasi_riwayat'),
     path('perempat', perempat, name='perempat')
->>>>>>> faf8698e8c7c62dd4f3deab34d4e7e95611c9ecf
 ]

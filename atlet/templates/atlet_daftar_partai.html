@@ -43,7 +43,9 @@
                     <td>Tunggal Putra</td>
                     <td>-</td>
                     <td> {{event.11}}/ {{event.5}}</td>
-                    <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
+                    {% if event.5 > 0 %}
+                    <td><a href="" class="btn btn-primary">Join</a></td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td>Ganda Putra</td>
@@ -55,7 +57,9 @@
                             {% endfor %}
                         </select>
                     </td>
+                    {% if event.5 > 0 %}
                     <td>{{event.10}} / {{event.5}}</td>
+                    {% endif %}
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
@@ -68,7 +72,9 @@
                             {% endfor %}
                         </select>
                     </td>
+                    {% if event.5 > 0 %}
                     <td> {{event.12}} / {{event.5}}</td>
+                    {% endif %}
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <!-- </tbody> -->
@@ -90,7 +96,9 @@
                     <td>Tunggal Putri</td>
                     <td>-</td>
                     <td>{{event.9}} / {{event.5}}</td>
+                    {% if event.5 > 0 %}
                     <td><a href="" class="btn btn-primary">Join</a></td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td>Ganda Putri</td>
@@ -103,7 +111,9 @@
                         </select>
                     </td>
                     <td>{{event.8}} / {{event.5}}</td>
+                    {% if event.5 > 0 %}
                     <td><a href="" class="btn btn-primary">Join</a></td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td>Ganda Campuran</td>
@@ -115,7 +125,9 @@
                             {% endfor %}
                         </select>
                     </td>
+                    {% if event.5 > 0 %}
                     <td>{{event.12}} / {{event.5}}</td>
+                    {% endif %}
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <!-- </tbody> -->
