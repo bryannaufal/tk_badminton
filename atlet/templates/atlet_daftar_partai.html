@@ -25,7 +25,7 @@
     <br>
     <form method="POST" action="">
     {% csrf_token %}
-    {% if atlet_gender == false %}
+    {% if atlet_gender == True %}
     <!-- <div class="table"> -->
         <table class="table">
             <!-- <thead> -->
@@ -48,7 +48,7 @@
                 <tr>
                     <td>Ganda Putra</td>
                     <td>
-                        <select id="ganda_putra" name="ganda_putra" style="color: grey;" disabled = true>
+                        <select id="ganda_putra" name="ganda_putra" style="color: grey;">
                             <option selected>Pilih partner</option>
                             {% for atlet in daftar_atlet_pria %}
                             <option value="{{atlet.0}}">{{atlet.2}}</option>
@@ -56,7 +56,7 @@
                         </select>
                     </td>
                     <td>{{event.10}} / {{event.5}}</td>
-                    <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
+                    <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Ganda Campuran</td>
@@ -73,7 +73,7 @@
                 </tr>
                 <!-- </tbody> -->
         </table>
-        {% elif atlet_gender == True %}
+        {% elif atlet_gender == False %}
         <table class="table">
             <!-- <thead> -->
                 <tr>

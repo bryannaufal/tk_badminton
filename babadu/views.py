@@ -183,7 +183,7 @@ def login(request):
             #     )
             #     request.session['id'] = cursor.fetchone()[0]
             messages.success(request, f'Anda telah berhasil login sebagai {role} :)')
-            return redirect(f'/{role}')
+            return redirect(f'/{role}/dashboard/')
         else:
             messages.info(request, f'Data yang anda masukkan tidak valid :(')
     context = {}
@@ -192,70 +192,3 @@ def login(request):
 def logout_user(request):
     request.session.clear()
     return redirect("/")
-
-from collections import namedtuple
-from django.db import connection
-from django.shortcuts import render, redirect
-from django.shortcuts import render
-from collections import namedtuple
-from django.db import connection
-from datetime import datetime as dt
-
-# Create your views here.
-def fetchall(cursor):
-    desc = cursor.description
-    nt_result = namedtuple('Result', [col[0] for col in desc])
-    return [nt_result(*row) for row in cursor.fetchall()]
-
-
-def ujian_kualifikasi_buat(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['ujian_kualifikasi_buat'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_buat'])
-        return render(request, "ujian_kualifikasi_buat.html", response)
-
-def ujian_kualifikasi_list(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['ujian_kualifikasi_list'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_list'])
-        return render(request, "ujian_kualifikasi_list.html", response)
-
-def ujian_kualifikasi_riwayat(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['ujian_kualifikasi_riwayat'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_riwayat'])
-        return render(request, "ujian_kualifikasi_riwayat.html", response)
-
-def ujian_kualifikasi_soal(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
-
-        response['ujian_kualifikasi_soal'] = cursor.fetchall()
-        print(response['ujian_kualifikasi_soal'])
-        return render(request, "ujian_kualifikasi_soal.html", response)

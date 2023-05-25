@@ -167,7 +167,7 @@ def lihat_daftar_atlet(request):
         "atlet_ganda_dict": atlet_ganda_dict
     }
 
-    return render(request, "daftar_atlet.html", context)
+    return render(request, "lihat_daftar_atlet.html", context)
 
 def lihat_partai_kompetisi(request):
     with connection.cursor() as cursor:
