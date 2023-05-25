@@ -16,5 +16,8 @@ urlpatterns = [
     path('atlet_ujian_kualifikasi_soal/', atlet_ujian_kualifikasi_soal, name='atlet_ujian_kualifikasi_soal'),
     path('atlet_daftar_stadium/', atlet_daftar_stadium, name='atlet_daftar_stadium'),
     path('atlet_daftar_stadium/<str:stadium>', atlet_daftar_event, name='atlet_daftar_event'),
-    path('atlet_daftar_stadium/<str:stadium>/<str:event>', atlet_daftar_partai, name='atlet_daftar_partai')
+    path('atlet_daftar_stadium/<str:stadium>/<str:event>', atlet_daftar_partai, name='atlet_daftar_partai'),
+    path('dashboard_atlet/', dashboard_atlet, name='dashboard_atlet'),
+    path('daftar_sponsor/', daftar_sponsor, name='daftar_sponsor'),
+    path('list_sponsor/', list_sponsor, name='list_sponsor')
 ]

@@ -158,7 +158,7 @@ def login(request):
                 is_valid = True
                 role = 'atlet'
                 request.session['role'] = role
-                break
+                return redirect('atlet:dashboard_atlet')
         for element in pelatih_data:
             if nama == element[0] and email == element[1]:
                 is_valid = True

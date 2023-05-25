@@ -17,14 +17,20 @@
     </tr>
   </thead>
   <tbody>
-    {% for ujian in umpire_ujian_kualifikasi_list %}
+    {% for ujian in umpire_ujian_kualifikasi_riwayat %}
     <tr>
-      <td></td>
       <td>{{ ujian.0 }}</td>
       <td>{{ ujian.1 }}</td>
       <td>{{ ujian.2 }}</td>
       <td>{{ ujian.3 }}</td>
-      <td><h5 style="text-align: center;">lulus</h5></td>
+      <td>{{ ujian.4 }}</td>
+      <td>
+        {% if ujian.5 %}
+          Lulus
+        {% else %}
+          Tidak Lulus
+        {% endif %}
+      </td>
     </tr>
     {% endfor %}
   </tbody>
