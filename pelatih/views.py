@@ -53,20 +53,23 @@ def daftar_atlet(request):
     with connection.cursor() as cursor:
         if request.method == 'POST':
             nama_pelatih = request.session["nama"]
+            email_pelatih = request.session["email"]
             id_atlet = request.POST.get("id_atlet")
 
             cursor.execute(
                 f"""
-                SELECT ID FROM MEMBER WHERE NAMA = '{nama_pelatih}';
+                SELECT ID 
+                FROM MEMBER 
+                WHERE NAMA = '{nama_pelatih}' AND EMAIL = '{email_pelatih}';
                 """
             )
 
-            id_peletih = cursor.fetchone()[0]
+            id_pelatih = cursor.fetchone()[0]
 
             if id_atlet:
                 cursor.execute(
                     f"""
-                    INSERT INTO ATLET_PELATIH VALUES ('{id_peletih}', '{id_atlet}');
+                    INSERT INTO ATLET_PELATIH VALUES ('{id_pelatih}', '{id_atlet}');
                     """
                 )
 
@@ -83,15 +86,15 @@ def daftar_atlet(request):
         daftar_atlet = []
 
         for res in result:
-            daftar_atlet.append(
-                {
+            atlet ={
                     "nama_atlet": res[0],
                     "id_atlet": res[1]
                 }
-            )
+            daftar_atlet.append(atlet)
 
         context = {
             "daftar_atlet": daftar_atlet
         }
+        print(context)
 
         return render(request, 'daftar_atlet.html', context)
