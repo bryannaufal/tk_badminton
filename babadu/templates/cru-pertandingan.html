@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +11,6 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  {% block meta %}
-  {% endblock meta %}
 </head>
 
 <!-- <style>
@@ -26,78 +23,64 @@
 </style> -->
 
 <body>
-  {% comment %} Bootstrap navbar {% endcomment %}
-
   <nav class="navbar navbar-expand-lg py-3" id="nav-bar">
     <div class="container-fluid">
-      <a class="navbar-brand">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" style="width: 120px; height: auto;">
-      </a>      
-
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="../dashboard/">Dashboard</a>
+            <a class="nav-link" href="#">Dashboard</a>
           </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Ujian Kualifikasi
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="../atlet_ujian_kualifikasi_list">List Ujian Kualifikasi</a>
-              <a class="dropdown-item" href="../atlet_ujian_kualifikasi_riwayat">Riwayat Ujian Kualifikasi</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Daftar Atlet</a>
           </li>
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Event
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="../atlet_daftar_stadium">Daftar Event</a>
-              <a class="dropdown-item" href="../enrolled_event">Enrolled Event</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Lihat Event</a>
           </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sponsor
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="../daftar_sponsor">Daftar Sponsor</a>
-              <a class="dropdown-item" href="../list_sponsor">List Sponsor</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Hasil Pertandingan</a>
           </li>
-
         </ul>
       </div>
-
       <div class="collapse navbar-collapse justify-content-end me-3" id="navbarNavDropdown">
         <ul class="navbar-nav nav-pills">
-          {% if request.session.nama %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ request.session.nama }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#">Pembayaran</a></li>
                   <li><a class="dropdown-item" href="{% url 'babadu:logout' %}">Logout</a></li>
               </ul>
             </li>
-          {% else %}
           <li class="nav-item">
             <a class="nav-link active px-3 ms-2 text-light" href="{% url 'babadu:login' %}">Login</a>
           </li>
-          {% endif %}
         </ul>
       </div>
     </div>
   </nav>
-  {% block content %}
-  {% endblock content %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <title>Button</title>
+        <style>
+            .container{
+                height: 200px;
+                width: 500px;
+                border: 2px solid black;
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <a href="pertandingan-perempat.html">
+                <button class="btn btn-primary btn-lg">Start</button>
+            </a>
+        </div>
+    </body>
 </body>
 </html>

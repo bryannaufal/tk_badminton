@@ -1,0 +1,45 @@
+{% extends 'base_atlet.html' %}
+{% block meta %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{% endblock meta %}
+{% block content %}
+<h1>DAFTAR ENROLL EVENT</h1>
+<br> <br>
+<table>
+    <thead>
+        <tr>
+            <th>Nama Event</th>
+            <th>Stadium</th>
+            <th>Stadium</th>
+            <th>Kategori Superseries</th>
+            <th>Tanggal Mulai</th>
+            <th>Tanggal Selesai</th>
+            <th>Unenroll</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in enrolled_event %}
+                    <tr>
+                        <td>{{item.1}}</td>
+                        <td>{{item.2}}</td>
+                        <td>{{item.3}}</td>
+                        <td>{{item.4}}</td>
+                        <td>{{item.5}}</td>
+                        <td>{{item.6}}</td>
+                        <td data-label="Kolom 9">
+                            <form method="POST">
+                                {% csrf_token %}
+                            <button class="btn btn-danger" type="submit" name="unenroll" value="{{item.1}}-{{item.2}}">
+                                Unenroll
+                              </button>
+                              </form>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+        
+    </tbody>
+</table>
+
+{% endblock content %}

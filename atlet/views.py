@@ -361,3 +361,60 @@ def list_sponsor(request):
         print(response['list_sponsor'])
 
         return render(request, "list_sponsor.html", response)    
+
+def enrolled_event(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT DISTINCT
+                        PME.Nomor_Peserta,
+                        E.Nama_Event,
+                        E.Tahun,
+                        S.Nama AS Stadium,
+                        E.Kategori_Superseries,
+                        E.Tgl_Mulai,
+                        E.Tgl_Selesai
+                        FROM
+                        PARTAI_PESERTA_KOMPETISI PPK,
+                        PESERTA_MENDAFTAR_EVENT PME
+                        JOIN PESERTA_KOMPETISI PK ON PME.Nomor_Peserta = PK.Nomor_Peserta
+                        JOIN EVENT E ON PME.Nama_Event = E.Nama_Event AND PME.Tahun = E.Tahun
+                        JOIN STADIUM S ON E.Nama_Stadium = S.Nama
+                        JOIN ATLET_GANDA AG ON PK.ID_Atlet_Ganda = AG.ID_Atlet_Ganda
+                        JOIN ATLET_KUALIFIKASI AK ON AG.ID_Atlet_Kualifikasi = AK.ID_Atlet OR AG.ID_Atlet_Kualifikasi_2 = AK.ID_Atlet;
+                        """)
+
+        response['enrolled_event'] = cursor.fetchall()
+        print(response['enrolled_event'])
+
+        return render(request, "enrolled_event.html", response)  
+    
+def enrolled_partai_kompetisi_event(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT DISTINCT
+                        PME.Nomor_Peserta,
+                        E.Nama_Event,
+                        E.Tahun,
+                        S.Nama AS Stadium,
+                        PPK.Jenis_Partai,
+                        E.Kategori_Superseries,
+                        E.Tgl_Mulai,
+                        E.Tgl_Selesai
+                        FROM
+                        PARTAI_PESERTA_KOMPETISI PPK,
+                        PESERTA_MENDAFTAR_EVENT PME
+                        JOIN PESERTA_KOMPETISI PK ON PME.Nomor_Peserta = PK.Nomor_Peserta
+                        JOIN EVENT E ON PME.Nama_Event = E.Nama_Event AND PME.Tahun = E.Tahun
+                        JOIN STADIUM S ON E.Nama_Stadium = S.Nama
+                        JOIN ATLET_GANDA AG ON PK.ID_Atlet_Ganda = AG.ID_Atlet_Ganda
+                        JOIN ATLET_KUALIFIKASI AK ON AG.ID_Atlet_Kualifikasi = AK.ID_Atlet OR AG.ID_Atlet_Kualifikasi_2 = AK.ID_Atlet;
+                        """)
+
+        response['enrolled_partai_kompetisi_event'] = cursor.fetchall()
+        print(response['enrolled_partai_kompetisi_event'])
+
+        return render(request, "enrolled_partai_kompetisi_event.html", response) 

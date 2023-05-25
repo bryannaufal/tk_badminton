@@ -1,0 +1,91 @@
+{% extends 'base_umpire.html' %}
+
+{% load static %}
+{% block content %}
+
+<h1>PERTANDINGAN PEREMPAT FINAL</h1>
+<h3>[00:00]</h3>
+
+<form method="post">
+<table>
+    <thead>
+        <tr>
+            <th>Tim 1</th>
+            <th>Tim 2</th>
+            <th>Skor Tim 1</th>
+            <th>Skor Tim 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ pertandingan.0 }}</td>
+            <td>{{ pertandingan.1 }}</td>
+            <td><div>
+              <button id="decrement-1" onclick="decrement('1')">-</button>
+      <input id='score-1' name='score-1' type=number min=0>
+      <button id="increment-1" onclick="increment('1')">+</button>
+    </div></td>
+            <td><div>
+              <button id="decrement-2" onclick="decrement('2')">-</button>
+      <input id='score-2' name='score-2' type=number min=0>
+      <button id="increment-2" onclick="increment('2')">+</button>
+    </div></td>
+        </tr>
+        <tr>
+            <td>{{ pertandingan.2 }}</td>
+            <td>{{ pertandingan.3 }}</td>
+            <td><div>
+              <button id="decrement-3" onclick="decrement('3')">-</button>
+      <input id='score-3' name='score-3' type=number min=0>
+      <button id="increment-3" onclick="increment('3')">+</button>
+    </div></td>
+            <td><div>
+              <button id="decrement-4" onclick="decrement('4')">-</button>
+      <input id='score-4' name='score-4' type=number min=0>
+      <button id="increment-4" onclick="increment('4')">+</button>
+    </div></td>
+        </tr>
+        <tr>
+            <td>{{ pertandingan.4 }}</td>
+            <td>{{ pertandingan.5 }}</td>
+            <td><div>
+              <button id="decrement-" onclick="decrement('5')">-</button>
+      <input id='score-5' name='score-5' type=number min=0>
+      <button id="increment-5" onclick="increment('5')">+</button>
+    </div></td>
+            <td><div>
+      <button id="decrement-6" onclick="decrement('6')">-</button>
+      <input id='score-6' name='score-6' type=number min=0>
+      <button id="increment-6" onclick="increment('6')">+</button>
+    </div></td>
+        </tr>
+        <tr>
+            <td>{{ pertandingan.6 }}</td>
+            <td>{{ pertandingan.7 }}</td>
+            <td><div>
+      <button id="decrement-7" onclick="decrement('7')">-</button>
+      <input id='score-7' name='score-7' type=number min=0>
+      <button id="increment-7" onclick="increment('7')">+</button>
+    </div></td>
+            <td><div>
+      <button id="decrement-8" onclick="decrement('8')">-</button>
+      <input id='score-8' name='score-8' type=number min=0>
+      <button id="increment-8" onclick="increment('8')">+</button>
+    </div>
+  </td>
+        </tr>
+    </tbody>
+</table>
+<button type="submit">NEXT</button>
+</form>
+
+<script>
+  function increment(id) {
+      document.getElementById('score-' + id).stepUp();
+  }
+  function decrement(id) {
+      document.getElementById('score-' + id).stepDown();
+  }
+  </script>
+
+{% endblock content %}
