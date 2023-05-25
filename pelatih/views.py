@@ -70,6 +70,7 @@ def daftar_atlet(request):
                     INSERT INTO ATLET_PELATIH VALUES ('{id_pelatih}', '{id_atlet}');
                     """
                 )
+                connection.commit()
 
                 return redirect("/pelatih/list_atlet")
 
