@@ -52,19 +52,8 @@ def logout_user(request):
 def daftar_atlet(request):
     with connection.cursor() as cursor:
         if request.method == 'POST':
-            nama_pelatih = request.session["nama"]
-            email_pelatih = request.session["email"]
+            id_pelatih = request.session["id"]
             id_atlet = request.POST.get("id_atlet")
-
-            cursor.execute(
-                f"""
-                SELECT ID 
-                FROM MEMBER 
-                WHERE NAMA = '{nama_pelatih}' AND EMAIL = '{email_pelatih}';
-                """
-            )
-
-            id_pelatih = cursor.fetchone()[0]
 
             if id_atlet:
                 cursor.execute(
@@ -73,7 +62,7 @@ def daftar_atlet(request):
                     """
                 )
 
-                return redirect("/pelatih/list-atlet")
+                return redirect("/pelatih/list_atlet")
 
         cursor.execute(
             f"""
@@ -98,3 +87,6 @@ def daftar_atlet(request):
         print(context)
 
         return render(request, 'daftar_atlet.html', context)
+
+def list_atlet(request):
+    print("hello")

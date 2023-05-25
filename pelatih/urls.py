@@ -12,4 +12,5 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('daftar_atlet/', daftar_atlet, name='daftar_atlet'),
+    path('list_atlet/', list_atlet, name='list_atlet'),
 ]
