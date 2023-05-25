@@ -59,9 +59,12 @@
                     <a href="">
                         <button type="button" class="btn btn-primary m-1" id="mulai">Mulai</button>
                     </a>
-                    <a href="">
-                        <button type="button" class="btn btn-primary">Hasil Pertandingan</button>
-                    </a>
+                    <form action="{% url 'umpire:lihat_hasil_pertandingan' %}" method="get">
+                        <input type="hidden" name="nama_event" value="{{ partai.Nama_event|urlencode }}">
+                        <input type="hidden" name="tahun_event" value="{{ partai.Tahun|urlencode }}">
+                        <input type="hidden" name="jenis_partai" value="{{ partai.Jenis_partai|urlencode }}">
+                        <button type="submit" class="btn btn-primary">Hasil Pertandingan</button>
+                    </form>
                     {% endif %}
                 </td>
             </tr>

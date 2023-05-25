@@ -1,7 +1,4 @@
 from django.urls import path
-from umpire.views import register
-from umpire.views import login_user
-from umpire.views import logout_user
 from umpire.views import *
 
 app_name = 'umpire'
@@ -15,5 +12,6 @@ urlpatterns = [
     path('umpire_ujian_kualifikasi_riwayat/', umpire_ujian_kualifikasi_riwayat, name='umpire_ujian_kualifikasi_riwayat'),
     path('umpire_ujian_kualifikasi_buat/', umpire_ujian_kualifikasi_buat, name='umpire_ujian_kualifikasi_buat'),
     path('daftar_atlet/', lihat_daftar_atlet, name='lihat_daftar_atlet'),
-    path('daftar_partai_kompetisi/', lihat_partai_kompetisi, name='lihat_partai_kompetisi')
+    path('daftar_partai_kompetisi/', lihat_partai_kompetisi, name='lihat_partai_kompetisi'),
+    path('lihat_hasil_pertandingan/', lihat_hasil_pertandingan, name='lihat_hasil_pertandingan')
 ]
