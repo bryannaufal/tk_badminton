@@ -1,0 +1,66 @@
+{% extends 'base_pelatih.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Mengatur tampilan form */
+  .centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .centered-form form {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+  }
+
+  /* Mengatur tampilan label */
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* Mengatur tampilan select */
+  select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  /* Mengatur tampilan tombol submit */
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<div class="centered-form">
+  <form action="/pelatih/daftar_atlet/" method="POST">
+    {% csrf_token %}
+    <label for="atlet">Atlet yang mau didaftarkan:</label>
+    <select name="atlet" id="atlet">
+      {% for atlet in daftar_atlet %}
+        <option value="{{ atlet.id_atlet }}">{{ atlet.nama_atlet }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock content %}

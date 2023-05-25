@@ -75,10 +75,10 @@
       </div>
       <div class="collapse navbar-collapse justify-content-end me-3" id="navbarNavDropdown">
         <ul class="navbar-nav nav-pills">
-          {% if request.user.is_authenticated %}
+          {% if request.session.nama %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ request.user.username }}
+                {{ request.session.nama }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="{% url 'babadu:logout' %}">Logout</a></li>

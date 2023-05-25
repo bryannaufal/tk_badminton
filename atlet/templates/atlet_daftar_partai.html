@@ -4,16 +4,6 @@
 {% block meta %}
 <title>Daftar Kategori Event</title>
 
-<!-- <style>
-    table, th, td {
-        border: 1px solid white;
-        border-collapse: collapse;
-        padding: 5px;
-    }
-    th, td {
-        background-color: #96D4D4;
-    }
-</style> -->
 {% endblock meta %}
 
 {% block content %}
@@ -35,7 +25,7 @@
     <br>
     <form method="POST" action="">
     {% csrf_token %}
-    {% if atlet_gender == "false" %}
+    {% if atlet_gender == false %}
     <!-- <div class="table"> -->
         <table class="table">
             <!-- <thead> -->
@@ -83,7 +73,7 @@
                 </tr>
                 <!-- </tbody> -->
         </table>
-        {% else %}
+        {% elif atlet_gender == True %}
         <table class="table">
             <!-- <thead> -->
                 <tr>

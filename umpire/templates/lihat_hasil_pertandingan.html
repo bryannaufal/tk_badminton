@@ -1,0 +1,129 @@
+{% extends 'base_umpire.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="title indigo mb-5">Hasil Pertandingan {{ jenis_partai }} - {{ nama_event }}</div>
+    
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ nama_event }}</h5>
+        <p class="card-text">Stadium: {{ nama_stadium }}</p>
+        <p class="card-text">Hadiah: Rp {{ total_hadiah }}</p>
+        <p class="card-text">Kategori Superseries: {{ kategori_superseries }}</p>
+        <p class="card-text">Tanggal Mulai: {{ tgl_mulai }}</p>
+        <p class="card-text">Tanggal Selesai: {{ tgl_selesai }}</p>
+        <p class="card-text">Kapasitas: {{ kapasitas }}</p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tahap</th>
+              {% if jenis_partai in partai_ganda %}
+                <th>Nama Atlet 1</th>
+                <th>Nama Atlet 2</th>
+              {% else %}
+                <th>Nama Atlet</th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% if juara_1 %}
+              <tr>
+                <td>Juara 1</td>
+                <td>{{ juara_1.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ juara_1.nama2 }}</td>
+                {% endif %}
+              </tr>
+            {% endif %}
+
+            {% if juara_2 %}
+              <tr>
+                <td>Juara 2</td>
+                <td>{{ juara_2.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ juara_2.nama2 }}</td>
+                {% endif %}
+              </tr>
+            {% endif %}
+
+            {% if juara_3 %}
+              <tr>
+                <td>Juara 3</td>
+                <td>{{ juara_3.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ juara_3.nama2 }}</td>
+                {% endif %}
+              </tr>
+            {% endif %}
+
+            {% if semifinal %}
+              <tr>
+                <td>Semifinal</td>
+                <td>{{ semifinal.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ semifinal.nama2 }}</td>
+                {% endif %}
+              </tr>
+            {% endif %}
+
+            {% if perempat_final %}
+              <tr>
+                <td rowspan="{{ perempat_final|length }}">Perempat Final</td>
+                <td>{{ perempat_final.0.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ perempat_final.0.nama2 }}</td>
+                {% endif %}
+              </tr>
+              {% for tim in perempat_final|slice:"1:" %}
+                <tr>
+                  <td>{{ tim.nama1 }}</td>
+                  {% if jenis_partai in partai_ganda %}
+                    <td>{{ tim.nama2 }}</td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            {% endif %}
+
+            {% if jumlah_peserta > 8 %}
+              <tr>
+                <td rowspan="{{ r16|length }}">R16</td>
+                <td>{{ r16.0.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ r16.0.nama2 }}</td>
+                {% endif %}
+              </tr>
+              {% for tim in r16|slice:"1:" %}
+                <tr>
+                  <td>{{ tim.nama1 }}</td>
+                  {% if jenis_partai in partai_ganda %}
+                    <td>{{ tim.nama2 }}</td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            {% endif %}
+
+            {% if jumlah_peserta > 16 %}
+              <tr>
+                <td rowspan="{{ r32|length }}">R32</td>
+                <td>{{ r32.0.nama1 }}</td>
+                {% if jenis_partai in partai_ganda %}
+                  <td>{{ r32.0.nama2 }}</td>
+                {% endif %}
+              </tr>
+              {% for tim in r32|slice:"1:" %}
+                <tr>
+                  <td>{{ tim.nama1 }}</td>
+                  {% if jenis_partai in partai_ganda %}
+                    <td>{{ tim.nama2 }}</td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

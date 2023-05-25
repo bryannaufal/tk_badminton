@@ -229,3 +229,109 @@ def lihat_partai_kompetisi(request):
             "partai_kompetisi": partai_kompetisi_dict
         }
     return render(request, "lihat_partai_kompetisi.html", context)
+
+
+def lihat_hasil_pertandingan(request):
+    # nama_event = request.GET.get("nama_event")
+    nama_event = "India Open 2022"
+    tahun = "2022"
+    jenis_partai = 'WD'
+    # tahun = request.GET.get("tahun")
+    # jenis_partai = request.GET.get("jenis_partai")
+    with connection.cursor() as cursor:
+        cursor.execute(f"""SELECT E.nama_stadium, E.total_hadiah,
+                        E.kategori_superseries, E.tgl_mulai, E.Tgl_selesai, S.kapasitas
+                        FROM EVENT E, PARTAI_KOMPETISI PK, STADIUM S
+                        WHERE E.Nama_event=PK.Nama_event
+                        AND E.Tahun=PK.Tahun_event
+                        AND E.Nama_stadium=S.Nama
+                        AND PK.jenis_partai='{jenis_partai}'
+                        AND PK.nama_event='{nama_event}'
+                        AND PK.tahun_event='{tahun}';
+                        """)
+        data_partai = cursor.fetchall()
+        partai = {
+            'nama_stadium': data_partai[0][0],
+            'total_hadiah': data_partai[0][1],
+            'kategori_superseries': data_partai[0][2],
+            'tgl_mulai': data_partai[0][3],
+            'tgl_selesai': data_partai[0][4],
+            'kapasitas': data_partai[0][5]
+        }
+        print(partai)
+        if jenis_partai in ['MD', 'XD', 'WD']:
+            cursor.execute(f"""SELECT M1.nama AS nama1, M2. nama AS nama2, PM.jenis_babak, PM.status_menang
+                        FROM MEMBER M1, MEMBER M2, ATLET_GANDA AG, PESERTA_KOMPETISI PK,
+                        MATCH M, PESERTA_MENGIKUTI_MATCH PM
+                        WHERE AG.ID_Atlet_Kualifikasi=M1.ID
+                        AND AG.ID_Atlet_Kualifikasi_2=M2.ID
+                        AND AG.ID_atlet_ganda=PK.ID_atlet_ganda
+				        AND PM.nomor_peserta=PK.nomor_peserta
+                        AND M.jenis_babak=PM.jenis_babak
+                        AND M.tanggal=PM.tanggal
+                        AND M.waktu_mulai=PM.waktu_mulai
+                        AND M.nama_event='{nama_event}'
+                        AND M.tahun_event='{tahun}';
+                    """)
+            data_peserta = cursor.fetchall()
+            print(data_peserta)
+            peserta_dict = []
+            for row in data_peserta:
+                peserta = {
+                    'nama1': row[0],
+                    'nama2': row[1],
+                    'jenis_babak': row[2],
+                    'status_menang': row[3],
+                }
+                peserta_dict.append(peserta)
+        else:
+            cursor.execute(f"""SELECT ME.nama AS nama1, PM.jenis_babak, PM.status_menang
+                        FROM MEMBER ME, PESERTA_KOMPETISI PK,
+                        MATCH M, PESERTA_MENGIKUTI_MATCH PM
+                        WHERE PM.nomor_peserta=PK.nomor_peserta
+                        AND M.jenis_babak=PM.jenis_babak
+                        AND M.tanggal=PM.tanggal
+                        AND M.waktu_mulai=PM.waktu_mulai
+                        AND PK.ID_ATLET_KUALIFIKASI=ME.ID
+                        AND (status_menang='false' OR PM.jenis_babak='FINAL')
+                        AND M.nama_event='{nama_event}'
+                        AND M.tahun_event='{tahun}';
+                    """)
+            data_peserta = cursor.fetchall()
+            peserta_dict = []
+            for row in data_peserta:
+                peserta = {
+                    'nama1': row[0],
+                    'nama2': "",
+                    'jenis_babak': row[2],
+                    'status_menang': row[3],
+                }
+                peserta_dict.append(peserta)
+        juara_1 = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="final" and peserta["status_menang"]==True]
+        juara_2 = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="final" and peserta["status_menang"]==False]
+        juara_3 = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="juara 3" and peserta["status_menang"]==True]
+        semifinal = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="semifinal"]
+        quarterfinal = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="quarterfinal"]
+        r16 = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="r16"]
+        r32 = [peserta for peserta in peserta_dict if peserta["jenis_babak"]=="r32"]
+    context = {
+        "jenis_partai": jenis_partai,
+        "nama_event": nama_event,
+        "nama_stadium": partai["nama_stadium"],
+        "total_hadiah": partai["total_hadiah"],
+        "kategori_superseries": partai["kategori_superseries"],
+        "tgl_mulai": partai["tgl_mulai"],
+        "tgl_selesai": partai["tgl_selesai"],
+        "kapasitas": partai["kapasitas"],
+        "juara_1": juara_1,
+        "juara_2": juara_2,
+        "juara_3": juara_3,
+        "semifinal": semifinal,
+        "quarterfinal": quarterfinal,
+        "r16": r16,
+        "r32": r32,
+        "jumlah_peserta": len(peserta_dict),
+        "partai_ganda": ['MD', 'XD', 'WD'] 
+    }
+    print(context)
+    return render(request, "lihat_hasil_pertandingan.html", context)

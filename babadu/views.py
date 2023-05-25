@@ -158,7 +158,7 @@ def login(request):
                 is_valid = True
                 role = 'atlet'
                 request.session['role'] = role
-                break
+                return redirect('atlet:dashboard_atlet')
         for element in pelatih_data:
             if nama == element[0] and email == element[1]:
                 is_valid = True
@@ -175,6 +175,15 @@ def login(request):
         if is_valid:
             request.session['nama'] = nama
             request.session['email'] = email
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    f"""
+                    SELECT ID 
+                    FROM MEMBER 
+                    WHERE NAMA = '{nama}' AND EMAIL = '{email}';
+                    """
+                )
+                request.session['id'] = cursor.fetchone()[0]
             messages.success(request, f'Anda telah berhasil login sebagai {role} :)')
             return redirect(f'/{role}')
         else:
@@ -183,8 +192,8 @@ def login(request):
     return render(request, 'login.html', context)
 
 def logout_user(request):
-    logout(request)
-    return redirect('babadu:login')
+    request.session.clear()
+    return redirect("/")
 
 from collections import namedtuple
 from django.db import connection
