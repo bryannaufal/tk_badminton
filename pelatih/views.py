@@ -135,3 +135,54 @@ def latih_atlet(request):
         "latih_atlet": latih_atlet
     }
     return render(request, "latih_atlet.html", context)
+
+def dashboard_pelatih(request):
+    pelatih_id = request.session["id"]
+    response = {}
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                        SELECT DISTINCT
+                            M.Nama,
+                            M.Email,
+                            P.tanggal_mulai
+                        FROM
+                            PELATIH P,
+                            MEMBER M,
+                            PELATIH_SPESIALISASI PS
+
+                        WHERE P.ID = M.ID AND P.ID = %s
+                        """, [pelatih_id])
+
+        response['list_dashboard_pelatih'] = cursor.fetchall()
+        print(response['list_dashboard_pelatih'])
+
+        cursor.execute("""
+                        SELECT DISTINCT
+                            S.Spesialisasi
+                        FROM
+                            PELATIH P,
+                            MEMBER M,
+                            SPESIALISASI S,
+                            PELATIH_SPESIALISASI PS
+
+                        WHERE P.ID = M.ID AND PS.ID_Pelatih = P.ID AND PS.ID_SPESIALISASI = S.ID AND P.ID = %s
+                        """, [pelatih_id])
+        response['pelatih_spesialisasi'] = cursor.fetchall()
+        # print(response['pelatih_spesialisai'])
+
+        merge = []
+        for i in response['pelatih_spesialisasi']:
+            merge.append(i[0])
+
+        string_sp = ''
+        for sp in merge:
+            string_sp += " " + sp + ","
+
+        spec = string_sp[1:len(string_sp)-1]
+
+        new_tuple = (spec,)
+
+        response['list_dashboard_pelatih'][0] += new_tuple
+        print(response['list_dashboard_pelatih'])
+
+        return render(request, "dashboard_pelatih.html", response)
