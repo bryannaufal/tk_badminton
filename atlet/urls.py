@@ -19,5 +19,7 @@ urlpatterns = [
     path('atlet_daftar_stadium/<str:stadium>/<str:event>', atlet_daftar_partai, name='atlet_daftar_partai'),
     path('dashboard/', dashboard_atlet, name='dashboard_atlet'),
     path('daftar_sponsor/', daftar_sponsor, name='daftar_sponsor'),
-    path('list_sponsor/', list_sponsor, name='list_sponsor')
+    path('list_sponsor/', list_sponsor, name='list_sponsor'),
+    path('enrolled_event/', enrolled_event, name='enrolled_event'),
+    path('enrolled_partai_kompetisi_event/', enrolled_partai_kompetisi_event, name='enrolled_partai_kompetisi_event')
 ]
