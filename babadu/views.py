@@ -29,7 +29,6 @@ def begin_page(request):
 def pilih_role(request):
     return render(request, "pilih_role.html")
 
-
 def register_atlet(request):
     if request.method == 'POST':
         id = uuid1()
