@@ -214,7 +214,7 @@ def atlet_daftar_partai(request, stadium, event):
                 LEFT JOIN ATLET_GANDA AG ON A.ID = AG.ID_Atlet_Kualifikasi OR A.ID = AG.ID_Atlet_Kualifikasi_2
                 LEFT JOIN ATLET_KUALIFIKASI AK ON A.ID = AK.ID_Atlet
             WHERE
-                AG.ID_Atlet_Ganda IS NULL AND a.jenis_kelamin = TRUE;
+                AG.ID_Atlet_Ganda IS NULL AND a.jenis_kelamin = FALSE;
         """)
 
         response['daftar_atlet_wanita'] = cursor.fetchall()
@@ -232,7 +232,7 @@ def atlet_daftar_partai(request, stadium, event):
                 LEFT JOIN ATLET_GANDA AG ON A.ID = AG.ID_Atlet_Kualifikasi OR A.ID = AG.ID_Atlet_Kualifikasi_2
                 LEFT JOIN ATLET_KUALIFIKASI AK ON A.ID = AK.ID_Atlet
             WHERE
-                AG.ID_Atlet_Ganda IS NULL AND a.jenis_kelamin = FALSE;
+                AG.ID_Atlet_Ganda IS NULL AND a.jenis_kelamin = TRUE;
         """)
         response['daftar_atlet_pria'] = cursor.fetchall()
         print(response['daftar_atlet_pria'])
@@ -295,7 +295,7 @@ def dashboard_atlet(request):
                 "tgl_lahir": athlete_data[3],
                 "play": "Right Hand" if athlete_data[4] else "Left Hand",
                 "height": athlete_data[5],
-                "jenis_kelamin": "Perempuan" if athlete_data[6] else "Laki-laki",
+                "jenis_kelamin": "Laki-laki" if athlete_data[6] else "Perempuan",
                 "world_rank": str(athlete_data[7]) if athlete_data[7] is not None else "-",
                 "status": "Qualified" if athlete_data[7] is not None else "Not Qualified"
             })
