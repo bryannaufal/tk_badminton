@@ -120,7 +120,7 @@ def latih_atlet(request):
                             JOIN ATLET A ON MA.ID = A.ID
                             JOIN ATLET_PELATIH AP ON A.ID = AP.ID_Atlet
                             JOIN PELATIH P ON AP.ID_Pelatih = P.ID
-                            WHERE p.id= '{id_pelatih}'""")
+                            WHERE p.id= '{id_pelatih};'""")
 
         daftar_atlet_latih= cursor.fetchall()
 

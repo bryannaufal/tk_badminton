@@ -56,9 +56,9 @@ def register_atlet(request):
             if is_email_exist:
                 messages.info(request, 'Email sudah pernah terdaftar!')
             else:
-                cursor.execute(f"""INSERT INTO MEMBER VALUES ('{id}', '{nama}', '{email}')""")
+                cursor.execute(f"""INSERT INTO MEMBER VALUES ('{id}', '{nama}', '{email}');""")
                 connection.commit()
-                cursor.execute(f"INSERT INTO atlet VALUES ('{id}', '{tanggal_lahir}', '{negara}', {play}, '{tinggi_badan}', null,{jenis_kelamin})")
+                cursor.execute(f"INSERT INTO atlet VALUES ('{id}', '{tanggal_lahir}', '{negara}', {play}, '{tinggi_badan}', null,{jenis_kelamin});")
                 connection.commit()
                 messages.success(request, 'Akun telah berhasil dibuat!')
                 return redirect('/atlet')
@@ -74,7 +74,7 @@ def register_pelatih(request):
         nama = request.POST.get('nama')
         email = request.POST.get('email')
         negara = request.POST.get('negara')
-        kategori = request.POST.get('kategori')
+        kategori = request.POST.getlist('kategori')
         tanggal_mulai = request.POST.get('tanggal_mulai')
     
         with connection.cursor() as cursor:
@@ -88,9 +88,16 @@ def register_pelatih(request):
             if is_email_exist:
                 messages.info(request, 'Email sudah pernah terdaftar!')
             else:
-                cursor.execute(f"""INSERT INTO member VALUES ('{id}', '{nama}', '{email}')""")
+                for kat in kategori:
+                    cursor.execute(f"""SELECT ID FROM SPESIALISASI WHERE SPESIALISASI='{kat}';
+                    """)
+                    id_kategori = cursor.fetchall()[0][0]
+                    cursor.execute(f"""INSERT INTO PELATIH_SPESIALISASI VALUES('{id}', '{id_kategori}');
+                    """)
+                    connection.commit()
+                cursor.execute(f"""INSERT INTO member VALUES ('{id}', '{nama}', '{email}');""")
                 connection.commit()
-                cursor.execute(f"INSERT INTO pelatih VALUES ('{id}', '{tanggal_mulai}')")
+                cursor.execute(f"INSERT INTO pelatih VALUES ('{id}', '{tanggal_mulai}');")
                 connection.commit()
                 messages.success(request, 'Akun telah berhasil dibuat!')
                 return redirect('/pelatih')
@@ -101,9 +108,29 @@ def register_pelatih(request):
 
 def register_umpire(request):
     if request.method == 'POST':
+        id = uuid1()
         nama = request.POST.get('nama')
         email = request.POST.get('email')
         negara = request.POST.get('negara')
+        
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                            SELECT *
+                            FROM member
+                            WHERE email ='{email}';
+                            """)
+
+            is_email_exist = cursor.fetchall()
+            if is_email_exist:
+                messages.info(request, 'Email sudah pernah terdaftar!')
+            else:
+                cursor.execute(f"""INSERT INTO MEMBER VALUES ('{id}', '{nama}', '{email}');""")
+                connection.commit()
+                cursor.execute(f"INSERT INTO UMPIRE VALUES ('{id}', '{negara}');")
+                connection.commit()
+                messages.success(request, 'Akun telah berhasil dibuat!')
+                return redirect('/umpire')
+            print(is_email_exist)
 
     context = {}
     return render(request, 'register_umpire.html', context)
