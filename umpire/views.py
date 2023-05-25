@@ -5,6 +5,9 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from datetime import date, datetime
+from django.views.decorators.csrf import csrf_exempt
+
 
 @login_required(login_url='login/')
 def show_wishlist(request):
@@ -202,3 +205,51 @@ def lihat_partai_kompetisi(request):
             "partai_kompetisi": partai_kompetisi_dict
         }
     return render(request, "lihat_partai_kompetisi.html", context)
+
+@csrf_exempt
+def perempat(request):
+    pertandingan = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    
+    context = {
+        'pertandingan': pertandingan,
+        'score': [[0,0], [0,0], [0,0], [0,0]]
+    }
+
+    if request.method == 'POST':
+        score = [request.POST.get('score-1'), request.POST.get('score-2'), request.POST.get('score-3'), request.POST.get('score-4'),
+                request.POST.get('score-5'), request.POST.get('score-6'), request.POST.get('score-7'), request.POST.get('score-8'), ]
+        
+        print(score)
+        tanggal = date.today()
+        waktu = datetime.now().strftime("%H:%M:%S")
+
+        if score[1] > score[2]:
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[1]}', '1');")
+        else :
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[2]}', '1');")
+
+        if score[3] > score[4]:
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[3]}', '1');")
+        else :
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[4]}', '1');")
+
+        if score[5] > score[6]:
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[5]}', '1');")
+        else :
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[6]}', '1');")
+
+        if score[7] > score[8]:
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[7]}', '1');")
+        else :
+            with connection.cursor() as cursor:
+                cursor.execute(f"INSERT INTO PESERTA_MENGIKUTI_MATCH VALUES ('Perempat final', '{tanggal}', '{waktu}', '{pertandingan[8]}', '1');")
+
+        return render(request, "pertandingan-semifinal.html", context)
+    return render(request, "pertandingan-perempat.html", context)
