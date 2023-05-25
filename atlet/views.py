@@ -258,21 +258,18 @@ def atlet_daftar_partai(request, stadium, event):
     return render(request, "atlet_daftar_partai.html", response)
 
 def dashboard_atlet(request):
-    nama = request.session.get("nama")
-    email = request.session.get("email")
+    nama = request.session["nama"]
+    email = request.session["email"]
 
     response = {}
 
     with connection.cursor() as cursor:
         # Get member ID
-        cursor.execute(
-            """
+        cursor.execute("""
             SELECT id
-            FROM MEMBER
-            WHERE nama = %s AND email = %s
-            """,
-            [nama, email]
-        )
+                FROM MEMBER
+                WHERE nama = %s AND email = %s;
+        """, [nama, email])
         member_id = cursor.fetchone()[0]
         response['member_id'] = member_id
         print(response['member_id'])
