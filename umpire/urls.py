@@ -13,5 +13,6 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('umpire_ujian_kualifikasi_list/', umpire_ujian_kualifikasi_list, name='umpire_ujian_kualifikasi_list'),
     path('umpire_ujian_kualifikasi_riwayat/', umpire_ujian_kualifikasi_riwayat, name='umpire_ujian_kualifikasi_riwayat'),
-    path('umpire_ujian_kualifikasi_buat/', umpire_ujian_kualifikasi_buat, name='umpire_ujian_kualifikasi_buat')
+    path('umpire_ujian_kualifikasi_buat/', umpire_ujian_kualifikasi_buat, name='umpire_ujian_kualifikasi_buat'),
+    path('daftar_atlet/', lihat_daftar_atlet, name='lihat_daftar_atlet')
 ]

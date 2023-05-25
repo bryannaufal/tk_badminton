@@ -92,3 +92,79 @@ def umpire_ujian_kualifikasi_riwayat(request):
         response['umpire_ujian_kualifikasi_riwayat'] = cursor.fetchall()
         print(response['umpire_ujian_kualifikasi_riwayat'])
         return render(request, "umpire_ujian_kualifikasi_riwayat.html", response)
+
+def lihat_daftar_atlet(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT DISTINCT M.nama, A.tgl_lahir, A.negara_asal, A.play_right, A.height, AK.world_rank, AK.world_tour_rank, A.jenis_kelamin, P.total_point
+                        FROM MEMBER M, ATLET A, ATLET_KUALIFIKASI AK, POINT_HISTORY P
+                        WHERE M.ID=A.ID AND A.ID=AK.ID_atlet
+                        AND A.ID=P.ID_atlet
+                        AND total_point IN (
+                            SELECT total_point FROM POINT_HISTORY
+                            WHERE ID_atlet=P.ID_atlet
+                            ORDER BY (Tahun, Bulan, Minggu_ke) LIMIT 1
+                        );""")
+        atlet_kuali = cursor.fetchall()
+        atlet_kuali_dict = []
+        for row in atlet_kuali:
+            atlet_dict = {
+                'nama': row[0],
+                'tgl_lahir': row[1],
+                'negara_asal': row[2],
+                'play_right': row[3],
+                'height': row[4],
+                'world_rank': row[5],
+                'world_tour_rank': row[6],
+                'jenis_kelamin': row[7],
+                'total_point': row[8]
+            }
+            atlet_kuali_dict.append(atlet_dict)
+
+        cursor.execute(f"""
+            SELECT DISTINCT M.nama, A.tgl_lahir, A.negara_asal, A.play_right, A.height, A.jenis_kelamin
+            FROM MEMBER M, ATLET A, ATLET_NON_KUALIFIKASI AN
+            WHERE M.ID=A.ID AND A.ID=AN.ID_atlet;
+        """)
+        atlet_nonkuali = cursor.fetchall()
+
+        atlet_nonkuali_dict = []
+        for row in atlet_nonkuali:
+            atlet_dict = {
+                'nama': row[0],
+                'tgl_lahir': row[1],
+                'negara_asal': row[2],
+                'play_right': row[3],
+                'height': row[4],
+                'jenis_kelamin': row[5]
+            }
+            atlet_nonkuali_dict.append(atlet_dict)
+
+        cursor.execute(f"""
+            SELECT AG.ID_Atlet_Ganda, MA.Nama AS nama_atlet_1, MB.Nama AS nama_atlet_2, SUM(PHA.total_point + PHB.total_point) AS total_point
+            FROM ATLET_GANDA AG
+            JOIN MEMBER MA ON AG.ID_Atlet_kualifikasi = MA.ID
+            JOIN MEMBER MB ON AG.ID_Atlet_kualifikasi_2 = MB.ID
+            LEFT JOIN POINT_HISTORY PHA ON PHA.ID_Atlet = AG.ID_Atlet_kualifikasi
+            LEFT JOIN POINT_HISTORY PHB ON PHB.ID_Atlet = AG.ID_Atlet_kualifikasi_2
+            GROUP BY AG.ID_Atlet_Ganda, MA.Nama, MB.Nama;
+                    """)
+        atlet_ganda = cursor.fetchall()
+
+        # pprint(atlet_ganda_raw)
+        atlet_ganda_dict = []
+        for row in atlet_ganda:
+            atlet_dict = {
+                'ID_Atlet_Ganda': row[0],
+                'nama_atlet_1': row[1],
+                'nama_atlet_2': row[2],
+                'total_point': row[3]
+            }
+            atlet_ganda_dict.append(atlet_dict)
+
+    context = {
+        "atlet_kuali_dict": atlet_kuali_dict,
+        "atlet_nonkuali_dict": atlet_nonkuali_dict,
+        "atlet_ganda_dict": atlet_ganda_dict
+    }
+
+    return render(request, "daftar_atlet.html", context)

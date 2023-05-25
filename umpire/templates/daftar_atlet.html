@@ -1,0 +1,84 @@
+{% extends 'base_umpire.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<div class="container">
+    <!-- Atlet Kuali Table -->
+<table>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Tanggal Lahir</th>
+        <th>Negara Asal</th>
+        <th>Play Right</th>
+        <th>Height</th>
+        <th>Jenis Kelamin</th>
+        <th>Total Point</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for atlet in atlet_kuali_dict %}
+      <tr>
+        <td>{{ atlet.nama }}</td>
+        <td>{{ atlet.tgl_lahir }}</td>
+        <td>{{ atlet.negara_asal }}</td>
+        <td>{{ atlet.play_right }}</td>
+        <td>{{ atlet.height }}</td>
+        <td>{{ atlet.jenis_kelamin }}</td>
+        <td>{{ atlet.total_point }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <!-- Atlet Nonkuali Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Tanggal Lahir</th>
+        <th>Negara Asal</th>
+        <th>Play Right</th>
+        <th>Height</th>
+        <th>Jenis Kelamin</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for atlet in atlet_nonkuali_dict %}
+      <tr>
+        <td>{{ atlet.nama }}</td>
+        <td>{{ atlet.tgl_lahir }}</td>
+        <td>{{ atlet.negara_asal }}</td>
+        <td>{{ atlet.play_right }}</td>
+        <td>{{ atlet.height }}</td>
+        <td>{{ atlet.jenis_kelamin }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <!-- Atlet Ganda Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID Atlet Ganda</th>
+        <th>Nama Atlet 1</th>
+        <th>Nama Atlet 2</th>
+        <th>Total Point</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for atlet in atlet_ganda_dict %}
+      <tr>
+        <td>{{ atlet.ID_Atlet_Ganda }}</td>
+        <td>{{ atlet.nama_atlet_1 }}</td>
+        <td>{{ atlet.nama_atlet_2 }}</td>
+        <td>{{ atlet.total_point }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
