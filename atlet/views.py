@@ -156,17 +156,55 @@ def atlet_ujian_kualifikasi_riwayat(request):
         return render(request, "atlet_ujian_kualifikasi_riwayat.html", response)
 
 def atlet_ujian_kualifikasi_soal(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
 
-        response['atlet_ujian_kualifikasi_soal'] = cursor.fetchall()
-        print(response['atlet_ujian_kualifikasi_soal'])
-        return render(request, "atlet_ujian_kualifikasi_soal.html", response)
+    cur = connection.cursor()
+   
+    # # Sessions
+    # nama = request.session['nama']
+    # email = request.session['email']
+    # role = request.session['role'] 
+    # batch = request.session['batch']
+    # tempat_pelaksanaan = request.session['tempat_pelaksanaan']
+    # tanggal_pelaksanaan = request.session['tanggal_pelaksanaan']
+
+    # cur.execute(""" SELECT id FROM MEMBER WHERE nama = %s AND email = %s; """, [nama, email])
+    # id_atlet = cur.fetchone()[0] 
+
+    # print(id_atlet)
+    # print(batch)
+    # print(tempat_pelaksanaan)
+    # print(tanggal_pelaksanaan)
+
+    if request.method == 'POST':
+      
+        option_1 = request.POST.get('1', '')
+        option_2 = request.POST.get('2', '')
+        option_3 = request.POST.get('3', '')
+        option_4 = request.POST.get('4', '')
+        option_5 = request.POST.get('5', '')
+
+        score = 0
+        if option_1 == 'benar':
+            score += 1
+        if option_2 == 'benar':
+            score += 1
+        if option_3 == 'benar':
+            score += 1
+        if option_4 == 'benar':
+            score += 1
+        if option_5 == 'benar':
+            score += 1
+
+        cur.execute(""" SELECT id FROM MEMBER WHERE nama = %s AND email = %s; """, [nama, email])
+        id_atlet = cur.fetchone()[0] 
+
+        if score >= 4:
+            print("Anda Lulus")
+        else:
+            print("Anda Tidak Lulus")
+        print(score)
+        return redirect('/atlet_ujian_kualifikasi_riwayat')
+    return render(request, "atlet_ujian_kualifikasi_soal.html")
 
 def atlet_daftar_stadium(request):
     response = {}
