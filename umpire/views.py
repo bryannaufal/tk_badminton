@@ -346,8 +346,26 @@ def perempat(request):
         'score': [[0,0], [0,0], [0,0], [0,0]]
     }
     print(context)
-    return render(request, "lihat_hasil_pertandingan.html", context)
+    return render(request, "pertandingan-perempat.html", context)
+def semifinal(request):
+    pertandingan = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    
+    context = {
+        'pertandingan': pertandingan,
+        'score': [[0,0], [0,0], [0,0], [0,0]]
+    }
+    print(context)
+    return render(request, "pertandingan-semifinal.html", context)
 
+def final(request):
+    pertandingan = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    
+    context = {
+        'pertandingan': pertandingan,
+        'score': [[0,0], [0,0], [0,0], [0,0]]
+    }
+    print(context)
+    return render(request, "pertandingan-final-juara3.html", context)
 def dashboard_umpire(request):
     nama = request.session["nama"]
     email = request.session["email"]
