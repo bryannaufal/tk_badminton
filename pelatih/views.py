@@ -52,7 +52,16 @@ def logout_user(request):
 def daftar_atlet(request):
     with connection.cursor() as cursor:
         if request.method == 'POST':
-            id_pelatih = request.session["id"]
+            nama_pelatih = request.session["nama"]
+            email_pelatih = request.session["email"]
+            cursor.execute(
+            f"""
+            SELECT ID 
+            FROM MEMBER 
+            WHERE NAMA = '{nama_pelatih}' AND EMAIL = '{email_pelatih}';
+            """
+            )
+            id_pelatih= cursor.fetchone()[0]
             id_atlet = request.POST.get("id_atlet")
 
             if id_atlet:
@@ -89,10 +98,18 @@ def daftar_atlet(request):
         return render(request, 'daftar_atlet.html', context)
 
 def latih_atlet(request):
-    id_pelatih = request.session["id"]
+    nama_pelatih = request.session["nama"]
+    email_pelatih = request.session["email"]
 
     with connection.cursor() as cursor:
-
+        cursor.execute(
+            f"""
+            SELECT ID 
+            FROM MEMBER 
+            WHERE NAMA = '{nama_pelatih}' AND EMAIL = '{email_pelatih}';
+            """
+        )
+        id_pelatih= cursor.fetchone()[0]
         cursor.execute(f"""
                             SELECT MA.Nama, MA.Email, A.World_rank
                             FROM MEMBER MA
@@ -116,4 +133,4 @@ def latih_atlet(request):
     context = {
         "latih_atlet": latih_atlet
     }
-    return render(request, "list_atlet.html", context)
+    return render(request, "latih_atlet.html", context)
