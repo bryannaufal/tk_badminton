@@ -258,8 +258,11 @@ def atlet_daftar_partai(request, stadium, event):
     return render(request, "atlet_daftar_partai.html", response)
 
 def dashboard_atlet(request):
-    nama = request.session.get("nama")
-    email = request.session.get("email")
+    nama = request.session["nama"]
+    email = request.session["email"]
+
+    print("hello"+ nama)
+    print(email)
 
     response = {}
 
@@ -274,6 +277,7 @@ def dashboard_atlet(request):
             [nama, email]
         )
         member_id = cursor.fetchone()[0]
+        print("hello" + member_id)
         response['member_id'] = member_id
         print(response['member_id'])
 
