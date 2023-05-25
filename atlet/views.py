@@ -69,17 +69,46 @@ def atlet_ujian_kualifikasi_list(request):
         return render(request, "atlet_ujian_kualifikasi_list.html", response)
 
 def atlet_ujian_kualifikasi_riwayat(request):
-    response = {}
-    with connection.cursor() as cursor:
-       
-        cursor.execute("""
-                        SELECT *
-                        FROM ujian_kualifikasi;
-                        """)
 
-        response['atlet_ujian_kualifikasi_riwayat'] = cursor.fetchall()
-        print(response['atlet_ujian_kualifikasi_riwayat'])
-        return render(request, "atlet_ujian_kualifikasi_riwayat.html", response)
+    cur = connection.cursor()
+
+    nama = request.session['nama']
+    email = request.session['email']
+    cur.execute(""" SELECT id FROM MEMBER WHERE nama = %s AND email = %s; """, [nama, email])
+    id_atlet = cur.fetchone()[0] 
+    print(id_atlet)
+
+    cur.execute(
+        """ 
+            SELECT DISTINCT U.tahun, U.batch, U.tempat, U.tanggal, N.hasil_lulus
+            FROM member M, atlet A, ujian_kualifikasi U, ATLET_NONKUALIFIKASI_UJIAN_KUALIFIKASI N
+            WHERE M.id = %s 
+            AND N.id_atlet = M.id 
+            AND N.tempat = U.tempat
+            AND N.batch = U.batch 
+            AND N.tempat = U.tempat 
+            AND N.tanggal = U.tanggal; 
+        """,
+        [id_atlet]
+    )   
+    data_ujian = cur.fetchall() 
+
+    tahun, batch, tempat, tanggal, hasil = ([] for i in range(5))
+    for data in data_ujian:
+            tahun.append(data[0])
+            batch.append(data[1])
+            tempat.append(data[2])
+            tanggal.append(str(data[3]))
+            hasil.append(data[4])
+
+    context =  {}
+    context['ujian'] = zip(tahun,
+                        batch,
+                        tempat,
+                        tanggal,
+                        hasil)
+    
+    return render(request, "atlet_ujian_kualifikasi_riwayat.html",  context)
 
 def atlet_ujian_kualifikasi_soal(request):
 
