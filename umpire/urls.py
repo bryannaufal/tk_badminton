@@ -18,4 +18,4 @@ urlpatterns = [
     path('dashboard/', umpire_ujian_kualifikasi_riwayat, name='umpire_ujian_kualifikasi_riwayat'),
     path('pertandingan-perempat', perempat, name='pertandingan-perempat'),
     path('pertandingan-semifinal', semifinal, name='pertandingan-semifinal'),
-    path('pertandingan-final', final, name='pertandingan-final')]
+    path('pertandingan-final-juara3', final, name='pertandingan-final-juara3')]
