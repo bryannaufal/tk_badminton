@@ -346,7 +346,7 @@ def perempat(request):
         'score': [[0,0], [0,0], [0,0], [0,0]]
     }
     print(context)
-    return render(request, "lihat_hasil_pertandingan.html", context)
+    return render(request, "pertandingan-perempat.html", context)
 
 def dashboard_umpire(request):
     nama = request.session["nama"]
