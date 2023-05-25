@@ -1,0 +1,17 @@
+{% extends 'base_umpire.html' %}
+{% load static %}
+
+{% block content %}
+<form action="/register-athlete" method="POST">
+    {% csrf_token %}
+    <label for="athlete">Atlet yang mau didaftarkan:</label>
+    <select name="athlete" id="athlete">
+      {% for athlete in athletes %}
+        <option value="{{ athlete.id }}">{{ athlete.name }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+  
+{% endblock content %}

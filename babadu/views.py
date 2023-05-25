@@ -183,8 +183,8 @@ def login(request):
     return render(request, 'login.html', context)
 
 def logout_user(request):
-    logout(request)
-    return redirect('babadu:login')
+    request.session.clear()
+    return redirect("/")
 
 from collections import namedtuple
 from django.db import connection
