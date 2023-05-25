@@ -175,15 +175,15 @@ def login(request):
         if is_valid:
             request.session['nama'] = nama
             request.session['email'] = email
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    f"""
-                    SELECT ID 
-                    FROM MEMBER 
-                    WHERE NAMA = '{nama}' AND EMAIL = '{email}';
-                    """
-                )
-                request.session['id'] = cursor.fetchone()[0]
+            # with connection.cursor() as cursor:
+            #     cursor.execute(
+            #         f"""
+            #         SELECT ID 
+            #         FROM MEMBER 
+            #         WHERE NAMA = '{nama}' AND EMAIL = '{email}';
+            #         """
+            #     )
+            #     request.session['id'] = cursor.fetchone()[0]
             messages.success(request, f'Anda telah berhasil login sebagai {role} :)')
             return redirect(f'/{role}')
         else:

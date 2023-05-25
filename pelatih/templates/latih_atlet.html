@@ -1,0 +1,46 @@
+{% extends 'base_pelatih.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+    <!-- <header>
+      <h1>List Atlet</h1>
+    </header> -->
+   
+    <div class="back">
+      <h1>Daftar Atlet yang Dilatih</h1>
+      <td class="align-middle">
+        <div class="d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nama Atlet</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">World rank</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for atlet in latih_atlet %}
+                    <tr>
+                      <td>{{ atlet.nama }}</td>
+                      <td>{{ atlet.email }}</td>
+                      {% if atlet.world_rank %}
+                      <td>{{ atlet.world_rank }}</td>
+                      {% else %}
+                      <td>-</td>
+                      {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </div>
+</body>
+{% endblock content %}
