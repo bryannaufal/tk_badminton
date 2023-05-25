@@ -198,12 +198,12 @@ def lihat_daftar_atlet(request):
     return render(request, "lihat_daftar_atlet.html", context)
 
 def lihat_hasil_pertandingan(request):
-    # nama_event = request.GET.get("nama_event")
-    nama_event = "India Open 2022"
-    tahun = "2022"
-    jenis_partai = 'WD'
-    # tahun = request.GET.get("tahun")
-    # jenis_partai = request.GET.get("jenis_partai")
+    nama_event = request.GET.get("nama_event")
+    # nama_event = "India Open 2022"
+    # tahun = "2022"
+    # jenis_partai = 'WD'
+    tahun = request.GET.get("tahun")
+    jenis_partai = request.GET.get("jenis_partai")
     with connection.cursor() as cursor:
         cursor.execute(f"""SELECT E.nama_stadium, E.total_hadiah,
                         E.kategori_superseries, E.tgl_mulai, E.Tgl_selesai, S.kapasitas
