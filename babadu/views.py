@@ -183,7 +183,7 @@ def login(request):
             #     )
             #     request.session['id'] = cursor.fetchone()[0]
             messages.success(request, f'Anda telah berhasil login sebagai {role} :)')
-            return redirect(f'/{role}')
+            return redirect(f'/{role}/dashboard/')
         else:
             messages.info(request, f'Data yang anda masukkan tidak valid :(')
     context = {}

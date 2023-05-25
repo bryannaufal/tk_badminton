@@ -261,9 +261,6 @@ def dashboard_atlet(request):
     nama = request.session["nama"]
     email = request.session["email"]
 
-    print("hello"+ nama)
-    print(email)
-
     response = {}
 
     with connection.cursor() as cursor:
@@ -277,7 +274,6 @@ def dashboard_atlet(request):
             [nama, email]
         )
         member_id = cursor.fetchone()[0]
-        print("hello" + member_id)
         response['member_id'] = member_id
         print(response['member_id'])
 

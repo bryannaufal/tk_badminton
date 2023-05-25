@@ -13,4 +13,5 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('daftar_atlet/', daftar_atlet, name='daftar_atlet'),
     path('latih_atlet/', latih_atlet, name='latih_atlet'),
+    path('dashboard/', latih_atlet, name='latih_atlet')
 ]
