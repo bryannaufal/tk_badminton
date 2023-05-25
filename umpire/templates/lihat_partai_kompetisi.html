@@ -1,0 +1,71 @@
+{% extends 'base_umpire.html' %}
+
+{% load static %}
+{% block content %}
+    <style>
+        .partai-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .partai-table th, .partai-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .partai-table th {
+            background-color: #f2f2f2;
+        }
+
+        .partai-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .partai-table a {
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+
+    <h1>Partai Kompetisi</h1>
+    <table class="partai-table">
+        <thead>
+            <tr>
+                <th>Nama Event</th>
+                <th>Tahun</th>
+                <th>Nama Stadium</th>
+                <th>Jenis Partai</th>
+                <th>Kategori Superseries</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Selesai</th>
+                <th>Kapasitas</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for partai in partai_kompetisi %}
+            <tr>
+                <td>{{ partai.Nama_event }}</td>
+                <td>{{ partai.Tahun }}</td>
+                <td>{{ partai.Nama_stadium }}</td>
+                <td>{{ partai.Jenis_partai }}</td>
+                <td>{{ partai.Kategori_Superseries }}</td>
+                <td>{{ partai.Tgl_mulai }}</td>
+                <td>{{ partai.Tgl_selesai }}</td>
+                <td>{{ partai.jumlah_peserta }}/{{ partai.Kapasitas }}</td>
+                <td>
+                    {% if partai.jumlah_peserta == partai.Kapasitas %}
+                    <a href="">
+                        <button type="button" class="btn btn-primary m-1" id="mulai">Mulai</button>
+                    </a>
+                    <a href="">
+                        <button type="button" class="btn btn-primary">Hasil Pertandingan</button>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

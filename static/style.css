@@ -63,3 +63,9 @@ body {
 .text2 {
     color: #a5aec0
 }
+
+.logo-img {
+    width: 10px; /* Adjust the width as per your requirement */
+    height: 10px; /* Automatically adjust the height while maintaining the aspect ratio */
+  }
+  
