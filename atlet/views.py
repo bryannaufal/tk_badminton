@@ -113,8 +113,8 @@ def atlet_daftar_event(request, stadium):
        
         cursor.execute(f"""
                         SELECT *
-                        FROM event
-                        WHERE nama_stadium like '{stadium}%';
+                            FROM event
+                            WHERE nama_stadium like '{stadium}%' and tgl_mulai > current_date;
                         """)
 
         response['atlet_daftar_event'] = cursor.fetchall()
@@ -183,12 +183,18 @@ def atlet_daftar_event(request, stadium):
 #         return render(request, "atlet_daftar_partai.html", response)
 
 def atlet_daftar_partai(request, stadium, event):
+    # id = request.session["id"]
+    # response = {"id": id}
     response = {}
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT e.nama_event, e.total_hadiah, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, s.kapasitas, e.nama_stadium, e.negara
-            FROM event as e, stadium as s
-            WHERE e.nama_stadium = %s AND e.nama_event = %s AND s.nama = e.nama_stadium;
+            SELECT e.nama_event, e.total_hadiah, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, s.kapasitas, e.nama_stadium, e.negara, 
+                count(p.nama_event) as jumlah_peserta
+                FROM event as e
+                JOIN stadium as s on e.nama_stadium = s.nama
+                JOIN peserta_mendaftar_event as p on e.nama_event = p.nama_event
+                WHERE e.nama_stadium = %s AND e.nama_event = %s AND s.nama = e.nama_stadium and p.nama_event = e.nama_event
+                GROUP BY e.nama_event, e.total_hadiah, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, s.kapasitas, e.nama_stadium, e.negara;
         """, [stadium, event])
 
         response['atlet_daftar_partai'] = cursor.fetchall()

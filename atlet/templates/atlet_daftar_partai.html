@@ -27,10 +27,11 @@
     <br><h7>Tanggal Mulai: {{event.2}}</h7>
     <br><h7>Tanggal Selesai: {{event.3}}</h7>
     <br><h7>Kategori: {{event.4}}</h7>
-    <br><h7>Kapasitas: 8/ {{event.5}}</h7>
+    <!-- <br><h7>Kapasitas: {{event.8}} / {{event.5}}</h7> -->
+    <br><h7>Kapasitas: {{event.5}} orang atau pasang / partai</h7>
     <br><h7>Stadium: {{event.6}}</h7>
     <br><h7>Negara: {{event.7}}</h7>
-    {% endfor %}
+    
     <br>
     <form action="">
 
@@ -42,6 +43,7 @@
                     <!-- <th class="col-0.5">#</th> -->
                     <th scope="col">Kategori</th>
                     <th scope="col">Partner</th>
+                    <th scope="col">Kapasitas</th>
                     <th scope="col">Opsi</th>
                 </tr>
                 <!-- </thead> -->
@@ -50,11 +52,13 @@
                 <tr>
                     <td>Tunggal Putra</td>
                     <td>-</td>
+                    <td> / {{event.5}}</td>
                     <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
                     <td>Tunggal Putri</td>
                     <td>-</td>
+                    <td> / {{event.5}}</td>
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
@@ -67,6 +71,7 @@
                             {% endfor %}
                         </select>
                     </td>
+                    <td> / {{event.5}}</td>
                     <td><a href="" hidden="True" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
@@ -79,6 +84,7 @@
                             {% endfor %}
                         </select>
                     </td>
+                    <td> / {{event.5}}</td>
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <tr>
@@ -91,11 +97,13 @@
                             {% endfor %}
                         </select>
                     </td>
+                    <td> / {{event.5}}</td>
                     <td><a href="" class="btn btn-primary">Join</a></td>
                 </tr>
                 <!-- </tbody> -->
         </table>
     </form>
+    {% endfor %}
 </div>
 
 
