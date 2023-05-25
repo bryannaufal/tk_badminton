@@ -4,28 +4,62 @@
 {% block content %}
 
 <!DOCTYPE html>
-<div class="container">
-    <h1>FORM BUAT UJIAN KUALIFIKASI</h1>
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+        <form method="POST" action="" id="myForm">
+        {% csrf_token %}
+        <h2>FORM UJIAN KUALIFIKASI</h2>
+    
+        <label class="questions">Tahun</label>
+        <div class="input mb-3">
+            <input type="text" name="tahun" class="form-control" placeholder="Tahun">
+        </div>
 
-    <form>
-        <div class="mb-3">
-            <label for="tahun" class="form-label">Tahun (YYYY):</label>
-            <input type="text" class="form-control" id="tahun" name="tahun" required>
+        <label class="questions">Batch</label>
+        <div class="input mb-3">
+            <input type="text" name="batch" class="form-control" placeholder="Batch">
         </div>
-        <div class="mb-3">
-            <label for="batch" class="form-label">Batch:</label>
-            <input type="text" class="form-control" id="batch" name="batch" required>
+        
+        <label class="questions">Tempat Pelaksanaan</label>
+        <div class="input mb-3">
+            <input type="text" name="tempat" class="form-control" placeholder="Tempat Pelaksanaan">
         </div>
-        <div class="mb-3">
-            <label for="tempat" class="form-label">Tempat Pelaksanaan:</label>
-            <input type="text" class="form-control" id="tempat" name="tempat" required>
+
+        <label class="questions">Tanggal Pelaksanaan</label>
+        <div class="input mb-3">
+            <input type="date" name="tanggal" class="form-control">
         </div>
-        <div class="mb-3">
-            <label for="tanggal" class="form-label">Tanggal Pelaksanaan:</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+        
+        <div id="errorMessage" style="color: red; font-size: 12px; display: none;">Silakan isi semua form!</div>
+
+        <div class="pb-3 pt-4 d-flex justify-content-center">
+            <a href="../umpire_ujian_kualifikasi_list">
+                <button type="submit" style="background-color: #428bca; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">BUAT</button>
+            </a>
         </div>
-        <button type="submit" class="btn btn-primary">Buat</button>
     </form>
+    </div>
 </div>
+
+<script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        var inputs = document.querySelectorAll("#myForm input[type='text'], #myForm input[type='date']");
+        var incomplete = false;
+
+        inputs.forEach(function(input) {
+            if (input.value.trim() === "") {
+                incomplete = true;
+                input.classList.add("is-invalid");
+            } else {
+                input.classList.remove("is-invalid");
+            }
+        });
+
+        if (incomplete) {
+            event.preventDefault();
+            document.getElementById("errorMessage").style.display = "block";
+        }
+    });
+</script>
 
 {% endblock content %}

@@ -107,7 +107,6 @@ def atlet_daftar_stadium(request):
         print(response['atlet_daftar_stadium'])
         return render(request, "atlet_daftar_stadium.html", response)
 
-
 def atlet_daftar_event(request, stadium):
     response = {}
     with connection.cursor() as cursor:
@@ -296,3 +295,34 @@ def dashboard_atlet(request):
         print(response['pelatih'])
 
     return render(request, "atlet_dashboard.html", response)
+
+def daftar_sponsor(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM sponsor;
+                        """)
+
+        response['daftar_sponsor'] = cursor.fetchall()
+        print(response['daftar_sponsor'])
+        # sql = "INSERT INTO ATLET_SPONSOR (id_atlet, id_sponsor, tgl_mulai, tgl_selesai) VALUES (%s,%s,%s,%s)"
+        # cursor.execute(sql, (str(id_atlet), str(id_sponsor), tgl_mulai, tgl_selesai))
+        return render(request, "daftar_sponsor.html", response)
+    
+def list_sponsor(request):
+    response = {}
+    with connection.cursor() as cursor:
+       
+        cursor.execute("""
+                        SELECT *
+                        FROM atlet_sponsor
+                        INNER JOIN sponsor
+                        ON atlet_sponsor.ID_Sponsor=sponsor.ID;
+                        """)
+
+        response['list_sponsor'] = cursor.fetchall()
+        print(response['list_sponsor'])
+
+        return render(request, "list_sponsor.html", response)    
