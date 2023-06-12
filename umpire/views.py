@@ -199,11 +199,16 @@ def lihat_daftar_atlet(request):
 
 def lihat_hasil_pertandingan(request):
     nama_event = request.GET.get("nama_event")
+    nama_event = nama_event.replace('%20', " ")
     # nama_event = "India Open 2022"
     # tahun = "2022"
     # jenis_partai = 'WD'
-    tahun = request.GET.get("tahun")
+    tahun = request.GET.get("tahun_event")
     jenis_partai = request.GET.get("jenis_partai")
+    print(nama_event)
+    print(tahun)
+    print(jenis_partai)
+    print("lalala")
     with connection.cursor() as cursor:
         cursor.execute(f"""SELECT E.nama_stadium, E.total_hadiah,
                         E.kategori_superseries, E.tgl_mulai, E.Tgl_selesai, S.kapasitas
@@ -216,6 +221,8 @@ def lihat_hasil_pertandingan(request):
                         AND PK.tahun_event='{tahun}';
                         """)
         data_partai = cursor.fetchall()
+        print('testes')
+        print(data_partai)
         partai = {
             'nama_stadium': data_partai[0][0],
             'total_hadiah': data_partai[0][1],
