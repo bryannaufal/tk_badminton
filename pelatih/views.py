@@ -65,9 +65,11 @@ def daftar_atlet(request):
             """
             )
             id_pelatih= cursor.fetchone()[0]
-            id_atlet = request.POST.get("id_atlet")
-
+            id_atlet = request.POST.get("atlet")
+            print(id_atlet)
+            print('cekcek')
             if id_atlet:
+                print("masuk masuk")
                 cursor.execute(
                     f"""
                     INSERT INTO ATLET_PELATIH VALUES ('{id_pelatih}', '{id_atlet}');
@@ -75,7 +77,7 @@ def daftar_atlet(request):
                 )
                 connection.commit()
 
-                return redirect("/pelatih/list_atlet")
+                return redirect("/pelatih/latih_atlet")
 
         cursor.execute(
             f"""
